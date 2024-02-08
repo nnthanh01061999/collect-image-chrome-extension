@@ -10,7 +10,7 @@ import { sortIcons, viewModeIcons } from '@/constants';
 import { cn } from '@/lib/utils';
 import { Image, TDir, TView } from '@/types';
 import { downloadAllImage, sortData } from '@/util';
-import { ListTree, CheckCheck, X, Download } from 'lucide-react';
+import { CheckCheck, Download, ScanSearch, X } from 'lucide-react';
 import { useCallback, useState } from 'react';
 
 type TImageTabProps = {
@@ -132,18 +132,19 @@ function ImageTab(props: TImageTabProps) {
                     <Button
                         size='icon'
                         variant='ghost'
-                        onClick={handleShowAllImage}
-                        title='Show all collected images'
-                    >
-                        <ListTree size={16} />
-                    </Button>
-                    <Button
-                        size='icon'
-                        variant='ghost'
                         onClick={handleChangeViewMode}
                         title='Change view mode'
                     >
                         {viewModeIcons[viewMode].icon}
+                    </Button>
+                    <Button
+                        size='icon'
+                        variant='ghost'
+                        loading={loading}
+                        onClick={handleShowAllImage}
+                        title='Show all collected images'
+                    >
+                        <ScanSearch size={16} />
                     </Button>
                     <Button
                         size='icon'
