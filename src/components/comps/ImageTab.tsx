@@ -2,6 +2,7 @@ import Empty from '@/components/comps/Empty';
 import ImageCard from '@/components/comps/ImageCard';
 import ImageItem from '@/components/comps/ImageItem';
 import Information from '@/components/comps/Information';
+import Loading from '@/components/comps/Loading';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Slider } from '@/components/ui/slider';
@@ -13,6 +14,7 @@ import { ListTree, CheckCheck, X, Download } from 'lucide-react';
 import { useCallback, useState } from 'react';
 
 type TImageTabProps = {
+    loading: boolean;
     images: Image[];
     selectedImage: string[];
     handleShowAllImage: () => void;
@@ -22,6 +24,7 @@ type TImageTabProps = {
 };
 function ImageTab(props: TImageTabProps) {
     const {
+        loading,
         images,
         selectedImage,
         handleShowAllImage,
@@ -107,7 +110,8 @@ function ImageTab(props: TImageTabProps) {
     );
 
     return (
-        <div className='grid gap-2'>
+        <div className='grid gap-2 relative'>
+            {loading && <Loading />}
             <div className='flex space-x-2 justify-between items-center'>
                 <div className='grid gap-2'>
                     <Information

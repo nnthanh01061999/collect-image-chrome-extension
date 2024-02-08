@@ -43,9 +43,10 @@ function ImageCard(props: Props) {
     return (
         <div
             className={cn([
-                'relative group p-3 rounded-md border overflow-hidden cursor-pointer border-input',
+                'relative h-full group p-3 rounded-md border overflow-hidden cursor-pointer border-input',
                 selected ? 'shadow-sm' : '',
                 selected ? 'bg-accent' : 'bg-white',
+                data.error ? 'opacity-70' : 'opacity-100',
             ])}
             onClick={onSelect}
         >
@@ -107,7 +108,7 @@ function ImageCard(props: Props) {
                 </span>
             </Show>
             <Show when={!!data.error || false}>
-                <span className='absolute inset-x-0 left-1/2 -translate-y-1/2 bg-background p-1'>
+                <span className='absolute inset-x-0 text-center top-1/2 -translate-y-1/2 p-1 opacity-80 bg-destructive text-white'>
                     {data.error}
                 </span>
             </Show>

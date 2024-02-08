@@ -21,28 +21,44 @@ export const showLoadingModal = () => {
 
     const modalContent = document.createElement('div');
     modalContent.style.cssText = `
-      background-color: rgba(0, 0, 0, 0.8);
-      padding: 16px;
+      background-color: hsl(210 40% 96.1%);
+      padding: 8px 16px;
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
       border-radius: 8px;
-      color: #fff;
+      color: rgb(9, 9, 11);
     `;
 
     const stopButton = document.createElement('button');
     stopButton.style.cssText = `
-        display: inline-block;
-        width: auto;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        white-space: nowrap;
+        border-radius: 0.375rem;
+        font-size: 0.875rem; 
+        font-weight: 500; 
+        transition: color 0.15s ease;
+        outline: none;
+        background-color: rgb(9, 9, 11);
+        color: rgb(250, 250, 250);
         cursor: pointer;
-        color: #000;
-        font-size: 0.875rem;
-        margin-top: 1rem;
-        background-color: #fff;
-        border-radius: 8px;
-        padding: 4px;
+        border: none;
+        margin-top: 16px;
+        padding: 8px 16px;
     `;
+
+    stopButton.addEventListener('mouseenter', function () {
+        this.style.backgroundColor = 'hsl(210 40% 96.1%)';
+        this.style.color = 'hsl(222.2 47.4% 11.2%)';
+    });
+
+    stopButton.addEventListener('mouseleave', function () {
+        this.style.backgroundColor = 'rgb(9, 9, 11)';
+        this.style.color = 'rgb(250, 250, 250)';
+    });
 
     stopButton.textContent = 'Cancel';
     stopButton.onclick = () => {
@@ -99,7 +115,8 @@ export const autoScrollAndGetImages = () => {
         } else {
             setTimeout(scrollAndCollectImages, 1000);
         }
+        return { images };
     }
 
-    scrollAndCollectImages();
+    return scrollAndCollectImages();
 };

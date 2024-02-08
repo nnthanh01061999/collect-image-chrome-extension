@@ -11,6 +11,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 function App() {
     const [images, setImages] = useState<Image[]>([]);
     const [videos, setVideos] = useState<Video[]>([]);
+    const [collecting, setCollecting] = useState<boolean>(false);
 
     const [selectedImage, setSelectedImage] = useState<string[]>([]);
 
@@ -44,38 +45,31 @@ function App() {
     }, [images, selectedImage.length]);
 
     const handleShowAllImage = () => {
-        if (!chrome.tabs) return;
-        chrome.tabs.query(
-            {
-                active: true,
-                currentWindow: true,
-            },
-            (tabs) => {
-                chrome.storage.local.get('images', (result) => {
-                    if (result.images?.length === 0) return;
-                    const images: Image[] = result.images || [];
+        setCollecting(true);
+        sendChromeMessage({
+            type: ChromeActionEnum.COLLECT_IMAGE,
+            callback: (tabs, response: ChromeResponse) => {
+                const url = new URL(tabs[0].url ?? '');
+                const domain = url.hostname;
 
-                    const url = new URL(tabs[0].url ?? '');
-
-                    const domain = url.hostname;
-
-                    let results = images?.map((item) => {
-                        return {
-                            ...item,
-                            src: checkImage(item.src, domain, tabs[0].url),
-                        };
-                    });
-                    results = [
-                        ...((new Map(
-                            results.map((item) => [item['src'], item])
-                        ).values() as any) || []),
-                    ];
-
-                    setImages(results);
-                    setSelectedImage(results.map((item) => item.src));
+                let images = response.images?.map((item) => {
+                    return {
+                        ...item,
+                        src: checkImage(item.src, domain, tabs[0].url),
+                    };
                 });
-            }
-        );
+
+                images = [
+                    ...((new Map(
+                        images?.map((item) => [item['src'], item])
+                    ).values() as any) || []),
+                ];
+
+                setImages(images);
+                setSelectedImage(images.map((item) => item.src));
+                setCollecting(false);
+            },
+        });
     };
 
     useEffect(() => {
@@ -115,6 +109,7 @@ function App() {
                 title: 'Image',
                 content: (
                     <ImageTab
+                        loading={collecting}
                         images={images}
                         selectedImage={selectedImage}
                         onDownloadError={onDownloadError}
@@ -147,7 +142,14 @@ function App() {
                 ),
             },
         ],
-        [handleSelectAllImage, images, onSelect, selectedImage, videos]
+        [
+            collecting,
+            handleSelectAllImage,
+            images,
+            onSelect,
+            selectedImage,
+            videos,
+        ]
     );
 
     return (

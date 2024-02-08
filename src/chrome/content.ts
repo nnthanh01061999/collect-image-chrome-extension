@@ -22,6 +22,10 @@ const actions = {
     VIEW_IMAGE: ({ data }) => {
         viewImage(data);
     },
+    COLLECT_IMAGE: ({ callback }) => {
+        showLoadingModal();
+        callback(autoScrollAndGetImages());
+    },
 
     CTX_MENU_COLLECT_IMAGE: () => {
         showLoadingModal();

@@ -1,10 +1,10 @@
 import { ChromeActionEnum } from '../types';
 
-chrome.contextMenus.create({
-    id: ChromeActionEnum.CTX_MENU_COLLECT_IMAGE,
-    title: 'Collect all images',
-    contexts: ['page'],
-});
+// chrome.contextMenus.create({
+//     id: ChromeActionEnum.CTX_MENU_COLLECT_IMAGE,
+//     title: 'Collect all images',
+//     contexts: ['page'],
+// });
 
 chrome.contextMenus.create({
     id: ChromeActionEnum.VIEW_IMAGE,
