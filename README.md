@@ -1,48 +1,78 @@
-# Getting Started with Create React App
+# Chrome Extension: Image Viewer
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
 
-## Available Scripts
+The Chrome Extension "Image Viewer" is a tool built using React that enhances your browsing experience by providing various image-related features directly within your Chrome browser. This extension allows users to interact with images on web pages more conveniently and efficiently.
 
-In the project directory, you can run:
+![alt text](https://github.com/nnthanh01061999/collect-image-chrome-extension/blob/main/app-image.png?raw=true)
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Get Current Image
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+-   Fetches the currently displayed image on the active page and displays it in the extension's popup HTML.
 
-### `npm test`
+### Download Multiple Images
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+-   Allows users to download multiple images at once.
 
-### `npm run build`
+### Sort Images
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+-   Enables users to sort images based on different criteria.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### View Image Fullscreen
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+-   Provides the ability to view an image fullscreen within the current page.
 
-### `npm run eject`
+### Scroll to Image
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+-   Scrolls the page to focus on a specific image.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Open Image in New Tab
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+-   Opens the selected image in a new browser tab.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### View Modes
 
-## Learn More
+-   Offers two view modes:
+    -   Grid: Displays images in a grid layout.
+    -   List: Displays images in a list layout.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Customizable Grid
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-# take-a-note-chrome-extension
-# collect-image-chrome-extension
+-   Users can adjust the number of columns in the grid view for optimal viewing experience.
+
+### Infinite Page Loading
+
+-   Automatically scrolls to the bottom of pages with infinite scroll to collect and display unique images in the extension's popup HTML.
+
+## Installation
+
+To install the Image Viewer Chrome Extension:
+
+1. Clone or download the repository to your local machine.
+2. Open Chrome and navigate to `chrome://extensions/`.
+3. Enable Developer Mode by toggling the switch in the top right corner.
+4. Click on "Load unpacked" and select the directory where you cloned/downloaded the extension.
+5. The Image Viewer extension should now appear in your list of installed extensions.
+
+## Usage
+
+1. Click on the Image Viewer extension icon in the Chrome toolbar to open the popup.
+2. Browse a webpage with images.
+3. Use the provided features to interact with the images as described above.
+
+## Contributing
+
+Contributions to the Image Viewer Chrome Extension are welcome! If you'd like to contribute, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch for your feature (`git checkout -b feature/new-feature`).
+3. Make your changes and ensure tests pass.
+4. Commit your changes (`git commit -am 'Add new feature'`).
+5. Push to the branch (`git push origin feature/new-feature`).
+6. Create a new Pull Request.
+
+## License
+
+The Image Viewer Chrome Extension is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
