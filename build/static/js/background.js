@@ -1,0 +1,2 @@
+(()=>{"use strict";let e=function(e){return e.GET_DOM="GET_DOM",e.SCROLL_INTO_IMAGE="SCROLL_INTO_IMAGE",e.SCROLL_INTO_VIDEO="SCROLL_INTO_VIDEO",e.VIEW_IMAGE="VIEW_IMAGE",e.COLLECT_IMAGE="COLLECT_IMAGE",e.CTX_MENU_COLLECT_IMAGE="CTX_MENU_COLLECT_IMAGE",e}({});chrome.contextMenus.create({id:e.VIEW_IMAGE,title:"View image",contexts:["image"]}),chrome.contextMenus.onClicked.addListener(((e,E)=>{null!==E&&void 0!==E&&E.id&&chrome.tabs.sendMessage(E.id,{type:e.menuItemId,data:e.srcUrl})}))})();
+//# sourceMappingURL=background.js.map
