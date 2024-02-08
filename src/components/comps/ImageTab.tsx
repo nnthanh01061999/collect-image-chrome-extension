@@ -10,17 +10,19 @@ import { sortIcons, viewModeIcons } from '@/constants';
 import { cn } from '@/lib/utils';
 import { Image, TDir, TView } from '@/types';
 import { downloadAllImage, sortData } from '@/util';
-import { CheckCheck, Download, ScanSearch, X } from 'lucide-react';
+import { CheckCheck, Download, ScanSearch, Trash, X } from 'lucide-react';
 import { useCallback, useState } from 'react';
 
-type TImageTabProps = {
-    loading: boolean;
+export type TImageTabProps = {
+    loading?: boolean;
     images: Image[];
     selectedImage: string[];
-    handleShowAllImage: () => void;
+    handleShowAllImage?: () => void;
     onDownloadError: (src: string) => void;
     handleSelectAllImage: () => void;
     onSelect: (src: string) => void;
+    onClearMark?: () => void;
+    unMarkImage?: (src: string) => void;
 };
 function ImageTab(props: TImageTabProps) {
     const {
@@ -31,6 +33,8 @@ function ImageTab(props: TImageTabProps) {
         onDownloadError,
         handleSelectAllImage,
         onSelect,
+        onClearMark,
+        unMarkImage,
     } = props;
 
     const [sortedImage, setSortedImage] = useState<Image[]>([]);
@@ -95,6 +99,9 @@ function ImageTab(props: TImageTabProps) {
                     selected={selectedImage?.includes(image.src)}
                     onSelect={() => onSelect(image.src)}
                     onDownloadError={onDownloadError}
+                    cols={cols}
+                    mark={!onClearMark}
+                    unMarkImage={unMarkImage}
                 />
             ) : (
                 <ImageItem
@@ -103,10 +110,20 @@ function ImageTab(props: TImageTabProps) {
                     selected={selectedImage?.includes(image.src)}
                     onSelect={() => onSelect(image.src)}
                     onDownloadError={onDownloadError}
+                    mark={!onClearMark}
+                    unMarkImage={unMarkImage}
                 />
             );
         },
-        [onDownloadError, onSelect, selectedImage, viewMode]
+        [
+            cols,
+            onClearMark,
+            onDownloadError,
+            onSelect,
+            selectedImage,
+            unMarkImage,
+            viewMode,
+        ]
     );
 
     return (
@@ -120,6 +137,16 @@ function ImageTab(props: TImageTabProps) {
                     />
                 </div>
                 <div className='grid gap-1 grid-flow-col'>
+                    {!!onClearMark && (
+                        <Button
+                            size='icon'
+                            variant='ghost'
+                            onClick={onClearMark}
+                            title='Clear all mark'
+                        >
+                            <Trash size={16} />
+                        </Button>
+                    )}
                     {viewMode === 'grid' && (
                         <Slider
                             value={[cols]}
@@ -137,15 +164,18 @@ function ImageTab(props: TImageTabProps) {
                     >
                         {viewModeIcons[viewMode].icon}
                     </Button>
-                    <Button
-                        size='icon'
-                        variant='ghost'
-                        loading={loading}
-                        onClick={handleShowAllImage}
-                        title='Show all collected images'
-                    >
-                        <ScanSearch size={16} />
-                    </Button>
+                    {handleShowAllImage && (
+                        <Button
+                            size='icon'
+                            variant='ghost'
+                            loading={loading}
+                            onClick={handleShowAllImage}
+                            title='Show all collected images'
+                        >
+                            <ScanSearch size={16} />
+                        </Button>
+                    )}
+
                     <Button
                         size='icon'
                         variant='ghost'

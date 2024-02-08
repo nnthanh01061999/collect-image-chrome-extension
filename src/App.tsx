@@ -1,5 +1,6 @@
 import Empty from '@/components/comps/Empty';
 import ImageTab from '@/components/comps/ImageTab';
+import MarkTab from '@/components/comps/MarkTab';
 import VideoItem from '@/components/comps/VideoItem';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -97,9 +98,6 @@ function App() {
                 setSelectedImage(images.map((item) => item.src));
             },
         });
-        return () => {
-            chrome.storage.local.set({ images: [] });
-        };
     }, []);
 
     const tabs = useMemo(
@@ -140,6 +138,11 @@ function App() {
                         </ScrollArea>
                     </div>
                 ),
+            },
+            {
+                value: 'mark',
+                title: 'Mark',
+                content: <MarkTab onDownloadError={onDownloadError} />,
             },
         ],
         [

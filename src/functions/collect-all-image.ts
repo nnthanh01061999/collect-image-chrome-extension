@@ -111,11 +111,16 @@ export const autoScrollAndGetImages = () => {
                 document.documentElement.scrollHeight - scrollThreshold
         ) {
             closeLoadingModal();
-            chrome.storage.local.set({ images });
+            chrome.storage.sync.set({ images });
         } else {
             setTimeout(scrollAndCollectImages, 1000);
         }
-        return { images };
+        const uniqueData = [
+            ...((new Map(
+                images.map((item) => [item['src'], item])
+            ).values() as any) || []),
+        ];
+        return { images: uniqueData };
     }
 
     return scrollAndCollectImages();

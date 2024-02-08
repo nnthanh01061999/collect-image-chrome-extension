@@ -1,19 +1,36 @@
 import Show from '@/components/condition/Show';
 import { Button } from '@/components/ui/button';
+import { markImage } from '@/functions/mark-image';
 import { cn } from '@/lib/utils';
 import { ChromeActionEnum, Image } from '@/types';
 import { downLoadImage, sendChromeMessage } from '@/util';
-import { Check, Download, ExternalLink, Target } from 'lucide-react';
+import {
+    Check,
+    Download,
+    ExternalLink,
+    Save,
+    Target,
+    Trash,
+} from 'lucide-react';
 
 interface Props {
     data: Image;
     selected: boolean;
+    mark?: boolean;
     onSelect: () => void;
     onDownloadError: (src: string) => void;
+    unMarkImage?: (src: string) => void;
 }
 
 function ImageItem(props: Props) {
-    const { data, selected, onSelect, onDownloadError } = props;
+    const {
+        data,
+        selected,
+        mark = false,
+        onSelect,
+        onDownloadError,
+        unMarkImage,
+    } = props;
 
     const handleOpenImage = () => {
         chrome.windows.create({ url: data.src, incognito: true });
@@ -26,6 +43,10 @@ function ImageItem(props: Props) {
         });
     };
 
+    const onMarkImage = () => markImage(data);
+
+    const onUnMarkImage = () => unMarkImage?.(data.src);
+
     return (
         <div
             className={cn([
@@ -34,42 +55,74 @@ function ImageItem(props: Props) {
             ])}
             onClick={onSelect}
         >
-            <div className='p-2 w-full grid-cols-[440px,36px,36px,36px,36px] grid items-start'>
+            <div
+                className={cn([
+                    'p-2 w-full grid items-start',
+                    mark
+                        ? 'grid-cols-[404px,36px,36px,36px,36px,36px]'
+                        : 'grid-cols-[476px,36px,36px,36px]',
+                ])}
+            >
                 <p
                     id={data.src}
                     className='whitespace-break-spaces cursor-pointer break-all'
                 >
                     {data.src}
                 </p>
-                <Button
-                    title='Download'
-                    size='sm'
-                    variant='ghost'
-                    onClick={downLoadImage(data, onDownloadError)}
-                >
-                    <Download size={16} />
-                </Button>
-                <Button
-                    title='View image in new tab'
-                    size='sm'
-                    variant='ghost'
-                    onClick={handleOpenImage}
-                >
-                    <ExternalLink size={16} />
-                </Button>
-                <Button
-                    title='Scroll into image'
-                    size='sm'
-                    variant='ghost'
-                    onClick={handleScrollInto}
-                >
-                    <Target size={16} />
-                </Button>
-                <Show when={selected}>
-                    <Button size='sm' variant='ghost'>
-                        <Check size={16} />
+                <div className='contents' onClick={(e) => e.stopPropagation()}>
+                    <Button
+                        title='Download'
+                        size='sm'
+                        variant='ghost'
+                        onClick={downLoadImage(data, onDownloadError)}
+                    >
+                        <Download size={16} />
                     </Button>
-                </Show>
+                    {mark && (
+                        <Button
+                            title='View image in new tab'
+                            size='sm'
+                            variant='ghost'
+                            onClick={handleOpenImage}
+                        >
+                            <ExternalLink size={16} />
+                        </Button>
+                    )}
+                    {mark && (
+                        <Button
+                            title='Scroll into image'
+                            size='sm'
+                            variant='ghost'
+                            onClick={handleScrollInto}
+                        >
+                            <Target size={16} />
+                        </Button>
+                    )}
+                    {mark ? (
+                        <Button
+                            title='Mark'
+                            size='sm'
+                            variant='ghost'
+                            onClick={onMarkImage}
+                        >
+                            <Save size={16} />
+                        </Button>
+                    ) : (
+                        <Button
+                            title='UnMark'
+                            size='sm'
+                            variant='ghost'
+                            onClick={onUnMarkImage}
+                        >
+                            <Trash size={16} />
+                        </Button>
+                    )}
+                    <Show when={selected}>
+                        <Button size='sm' variant='ghost'>
+                            <Check size={16} />
+                        </Button>
+                    </Show>
+                </div>
             </div>
 
             <Show when={!!data.error || false}>
