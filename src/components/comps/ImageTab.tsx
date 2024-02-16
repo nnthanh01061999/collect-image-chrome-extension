@@ -3,6 +3,7 @@ import ImageCard from '@/components/comps/ImageCard';
 import ImageItem from '@/components/comps/ImageItem';
 import Information from '@/components/comps/Information';
 import Loading from '@/components/comps/Loading';
+import BasePagination from '@/components/ui/base-pagination';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Slider } from '@/components/ui/slider';
@@ -10,6 +11,7 @@ import { sortIcons, viewModeIcons } from '@/constants';
 import { cn } from '@/lib/utils';
 import { Image, TDir, TView } from '@/types';
 import { downloadAllImage, sortData } from '@/util';
+import usePaginationClient from '@/util/hooks/use-pagination-client';
 import { CheckCheck, Download, ScanSearch, Trash, X } from 'lucide-react';
 import { useCallback, useState } from 'react';
 
@@ -41,6 +43,10 @@ function ImageTab(props: TImageTabProps) {
     const [sortMode, setSortMode] = useState<TDir>('none');
     const [cols, setCols] = useState<number>(3);
     const [viewMode, setViewMode] = useState<TView>('grid');
+    const { data, pagination } = usePaginationClient({
+        data: sortedImage.length ? sortedImage : images,
+        size: 12,
+    });
 
     const handleSort = useCallback(() => {
         setSortedImage(() => {
@@ -71,7 +77,8 @@ function ImageTab(props: TImageTabProps) {
                     return 'none';
             }
         });
-    }, [images, sortMode]);
+        pagination.first();
+    }, [images, pagination, sortMode]);
 
     const handleChangeViewMode = useCallback(() => {
         setViewMode(() => {
@@ -209,8 +216,8 @@ function ImageTab(props: TImageTabProps) {
                     </Button>
                 </div>
             </div>
-            <ScrollArea className='max-h-[460px] pe-4'>
-                {sortedImage.length || images.length ? (
+            <ScrollArea className='max-h-[420px] pe-4'>
+                {data.length ? (
                     <div
                         className={cn(
                             'grid ',
@@ -221,16 +228,15 @@ function ImageTab(props: TImageTabProps) {
                             viewMode === 'grid' && cols === 4 && 'grid-cols-4'
                         )}
                     >
-                        {sortedImage.length
-                            ? sortedImage.map((image) => renderItem(image))
-                            : images.length
-                            ? images.map((image) => renderItem(image))
-                            : null}
+                        {data.map((image) => renderItem(image))}
                     </div>
                 ) : (
                     <Empty />
                 )}
             </ScrollArea>
+            <div className='fixed bottom-2 inset-x-0'>
+                <BasePagination pagination={pagination} />
+            </div>
         </div>
     );
 }
