@@ -7,9 +7,9 @@ import BasePagination from '@/components/ui/base-pagination';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Slider } from '@/components/ui/slider';
-import { sortIcons, viewModeIcons } from '@/constants';
+import { paginationViewModeIcons, sortIcons, viewModeIcons } from '@/constants';
 import { cn } from '@/lib/utils';
-import { Image, TDir, TView } from '@/types';
+import { Image, TDir, TPagination, TView } from '@/types';
 import { downloadAllImage, sortData } from '@/util';
 import usePaginationClient from '@/util/hooks/use-pagination-client';
 import { CheckCheck, Download, ScanSearch, Trash, X } from 'lucide-react';
@@ -43,9 +43,14 @@ function ImageTab(props: TImageTabProps) {
     const [sortMode, setSortMode] = useState<TDir>('none');
     const [cols, setCols] = useState<number>(3);
     const [viewMode, setViewMode] = useState<TView>('grid');
+    const [paginationMode, setPaginationMode] = useState<TPagination>('none');
+
     const { data, pagination } = usePaginationClient({
         data: sortedImage.length ? sortedImage : images,
-        size: 12,
+        size:
+            paginationMode === 'none'
+                ? (sortedImage.length ? sortedImage : images).length
+                : 12,
     });
 
     const handleSort = useCallback(() => {
@@ -96,6 +101,23 @@ function ImageTab(props: TImageTabProps) {
             }
         });
     }, [viewMode]);
+
+    const handleChangePaginationMode = useCallback(() => {
+        setPaginationMode(() => {
+            switch (paginationMode) {
+                case 'none': {
+                    return 'pagination';
+                }
+                case 'pagination': {
+                    return 'none';
+                }
+
+                default: {
+                    return 'pagination';
+                }
+            }
+        });
+    }, [paginationMode]);
 
     const renderItem = useCallback(
         (image: Image) => {
@@ -182,6 +204,14 @@ function ImageTab(props: TImageTabProps) {
                             <ScanSearch size={16} />
                         </Button>
                     )}
+                    <Button
+                        size='icon'
+                        variant='ghost'
+                        onClick={handleChangePaginationMode}
+                        title='Change pagination view'
+                    >
+                        {paginationViewModeIcons[paginationMode].icon}
+                    </Button>
 
                     <Button
                         size='icon'
@@ -216,7 +246,14 @@ function ImageTab(props: TImageTabProps) {
                     </Button>
                 </div>
             </div>
-            <ScrollArea className='max-h-[420px] pe-4'>
+            <ScrollArea
+                className={cn([
+                    'pe-4',
+                    paginationMode === 'none'
+                        ? 'max-h-[460px]'
+                        : 'max-h-[420px]',
+                ])}
+            >
                 {data.length ? (
                     <div
                         className={cn(
@@ -234,9 +271,11 @@ function ImageTab(props: TImageTabProps) {
                     <Empty />
                 )}
             </ScrollArea>
-            <div className='fixed bottom-2 inset-x-0'>
-                <BasePagination pagination={pagination} />
-            </div>
+            {paginationMode === 'pagination' && (
+                <div className='fixed bottom-2 inset-x-0'>
+                    <BasePagination pagination={pagination} />
+                </div>
+            )}
         </div>
     );
 }

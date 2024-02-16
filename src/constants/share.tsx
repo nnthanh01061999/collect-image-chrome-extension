@@ -1,10 +1,12 @@
-import { TDir, TView } from '@/types';
+import { TDir, TPagination, TView } from '@/types';
 import {
     ArrowUp,
     ArrowDown,
     ArrowDownUp,
     LayoutGrid,
     List,
+    ListOrdered,
+    X,
 } from 'lucide-react';
 import { ReactNode } from 'react';
 
@@ -41,5 +43,19 @@ export const viewModeIcons: Record<
     },
     list: {
         icon: <List size={16} />,
+    },
+};
+
+export const paginationViewModeIcons: Record<
+    TPagination,
+    {
+        icon: ReactNode;
+    }
+> = {
+    pagination: {
+        icon: <X size={16} />,
+    },
+    none: {
+        icon: <ListOrdered size={16} />,
     },
 };
