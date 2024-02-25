@@ -12,6 +12,12 @@ chrome.contextMenus.create({
     contexts: ['image'],
 });
 
+chrome.contextMenus.create({
+    id: ChromeActionEnum.CTX_SHOW_VIDEO,
+    title: 'Show Video',
+    contexts: ['page'],
+});
+
 chrome.contextMenus.onClicked.addListener((info, tab) => {
     if (!tab?.id) return;
     chrome.tabs.sendMessage(tab.id, {

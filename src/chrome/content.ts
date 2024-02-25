@@ -7,6 +7,7 @@ import {
     viewImage,
 } from '@/functions';
 import { ChromeActionEnum, ChromeMessage } from '../types';
+import { viewVideoCarousel } from '@/functions/show-video';
 
 const actions = {
     GET_DOM: ({ callback }) => {
@@ -30,6 +31,9 @@ const actions = {
     CTX_MENU_COLLECT_IMAGE: () => {
         showLoadingModal();
         autoScrollAndGetImages();
+    },
+    CTX_SHOW_VIDEO: () => {
+        viewVideoCarousel();
     },
 } satisfies Record<
     ChromeActionEnum,
