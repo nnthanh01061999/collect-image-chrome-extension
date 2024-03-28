@@ -1,3 +1,5 @@
+import ExifrInfo from '@/components/comps/ExifrInfo';
+import SocialSharePopover from '@/components/comps/SocialSharePopover';
 import Show from '@/components/condition/Show';
 import { Button } from '@/components/ui/button';
 import { markImage } from '@/functions/mark-image';
@@ -5,10 +7,11 @@ import { cn } from '@/lib/utils';
 import { ChromeActionEnum, Image } from '@/types';
 import { downLoadImage, sendChromeMessage } from '@/util';
 import {
+    Bookmark,
     Check,
     Download,
     ExternalLink,
-    Save,
+    Share2,
     Target,
     Trash,
 } from 'lucide-react';
@@ -50,7 +53,7 @@ function ImageItem(props: Props) {
     return (
         <div
             className={cn([
-                'flex space-y-1',
+                'flex space-y-1 cursor-pointer',
                 selected ? 'bg-accent' : 'bg-white',
             ])}
             onClick={onSelect}
@@ -59,16 +62,19 @@ function ImageItem(props: Props) {
                 className={cn([
                     'p-2 w-full grid items-start',
                     mark
-                        ? 'grid-cols-[404px,36px,36px,36px,36px,36px]'
-                        : 'grid-cols-[476px,36px,36px,36px]',
+                        ? 'grid-cols-[368px,36px,36px,36px,36px,36px,36px]'
+                        : 'grid-cols-[440px,36px,36px,36px,36px]',
                 ])}
             >
-                <p
-                    id={data.src}
-                    className='whitespace-break-spaces cursor-pointer break-all'
-                >
-                    {data.src}
-                </p>
+                <div className='grid gap-1'>
+                    <p
+                        id={data.src}
+                        className='whitespace-break-spaces cursor-pointer break-all'
+                    >
+                        {data.src}
+                    </p>
+                    <ExifrInfo url={data.src} enabled />
+                </div>
                 <div className='contents' onClick={(e) => e.stopPropagation()}>
                     <Button
                         title='Download'
@@ -78,6 +84,11 @@ function ImageItem(props: Props) {
                     >
                         <Download size={16} />
                     </Button>
+                    <SocialSharePopover url={data.src}>
+                        <Button title='Share' size='sm' variant='ghost'>
+                            <Share2 size={16} />
+                        </Button>
+                    </SocialSharePopover>
                     {mark && (
                         <Button
                             title='View image in new tab'
@@ -105,7 +116,7 @@ function ImageItem(props: Props) {
                             variant='ghost'
                             onClick={onMarkImage}
                         >
-                            <Save size={16} />
+                            <Bookmark size={16} />
                         </Button>
                     ) : (
                         <Button

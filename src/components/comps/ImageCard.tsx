@@ -1,3 +1,5 @@
+import ExifrPopover from '@/components/comps/ExifrPopover';
+import SocialSharePopover from '@/components/comps/SocialSharePopover';
 import Show from '@/components/condition/Show';
 import { Button } from '@/components/ui/button';
 import { markImage } from '@/functions/mark-image';
@@ -5,10 +7,12 @@ import { cn } from '@/lib/utils';
 import { ChromeActionEnum, Image } from '@/types';
 import { downLoadImage, sendChromeMessage } from '@/util';
 import {
+    Bookmark,
     Check,
     Download,
     ExternalLink,
-    Save,
+    Info,
+    Share2,
     Target,
     Trash,
     View,
@@ -135,6 +139,7 @@ function ImageCard(props: Props) {
                         <Target size={16} />
                     </Button>
                 )}
+
                 {mark ? (
                     <Button
                         title='Mark'
@@ -142,7 +147,7 @@ function ImageCard(props: Props) {
                         variant='ghost'
                         onClick={onMarkImage}
                     >
-                        <Save size={16} />
+                        <Bookmark size={16} />
                     </Button>
                 ) : (
                     <Button
@@ -160,11 +165,22 @@ function ImageCard(props: Props) {
                     <Check size={16} />
                 </span>
             </Show>
+
             <Show when={!!data.error || false}>
                 <span className='absolute inset-x-0 text-center top-1/2 -translate-y-1/2 p-1 opacity-80 bg-destructive text-white'>
                     {data.error}
                 </span>
             </Show>
+            <span className='absolute left-0 top-0 bg-background p-1 border-input border'>
+                <ExifrPopover url={data.src}>
+                    <Info size={16} />
+                </ExifrPopover>
+            </span>
+            <span className='absolute left-[26px] top-0 bg-background rounded-br-md p-1 border-input border'>
+                <SocialSharePopover url={data.src}>
+                    <Share2 size={16} />
+                </SocialSharePopover>
+            </span>
         </div>
     );
 }

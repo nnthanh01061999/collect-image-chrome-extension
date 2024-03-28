@@ -10,9 +10,16 @@ import { Slider } from '@/components/ui/slider';
 import { paginationViewModeIcons, sortIcons, viewModeIcons } from '@/constants';
 import { cn } from '@/lib/utils';
 import { Image, TDir, TPagination, TView } from '@/types';
-import { downloadAllImage, sortData } from '@/util';
+import { downloadAllImage, downloadAllImagesAsZip, sortData } from '@/util';
 import usePaginationClient from '@/util/hooks/use-pagination-client';
-import { CheckCheck, Download, ScanSearch, Trash, X } from 'lucide-react';
+import {
+    CheckCheck,
+    Download,
+    FileArchive,
+    ScanSearch,
+    Trash,
+    X,
+} from 'lucide-react';
 import { useCallback, useState } from 'react';
 
 export type TImageTabProps = {
@@ -243,6 +250,17 @@ function ImageTab(props: TImageTabProps) {
                         title='Download all selected images'
                     >
                         <Download size={16} />
+                    </Button>
+                    <Button
+                        size='icon'
+                        variant='ghost'
+                        onClick={downloadAllImagesAsZip(
+                            selectedImage,
+                            onDownloadError
+                        )}
+                        title='Download all selected images to zip file'
+                    >
+                        <FileArchive size={16} />
                     </Button>
                 </div>
             </div>

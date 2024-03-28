@@ -4,7 +4,7 @@
 
 The Chrome Extension "Image Viewer" is a tool built using React that enhances your browsing experience by providing various image-related features directly within your Chrome browser. This extension allows users to interact with images on web pages more conveniently and efficiently.
 
-![alt text](https://github.com/nnthanh01061999/collect-image-chrome-extension/blob/main/app-image.png?raw=true)
+![alt text](https://github.com/nnthanh01061999/collect-image-chrome-extension/blob/main/app-image-1.png?raw=true)
 
 ## Features
 
@@ -16,11 +16,15 @@ The Chrome Extension "Image Viewer" is a tool built using React that enhances yo
 
 -   Allows users to download multiple images at once.
 
+### Download Multiple Images as Zip
+
+-   Enables users to download multiple images as a compressed zip file for easier sharing and storage.
+
 ### Sort Images
 
 -   Enables users to sort images based on different criteria.
 
-### View Image Fullscreen
+### View Image Full Screen
 
 -   Provides the ability to view an image fullscreen within the current page.
 
@@ -45,6 +49,14 @@ The Chrome Extension "Image Viewer" is a tool built using React that enhances yo
 ### Infinite Page Loading
 
 -   Automatically scrolls to the bottom of pages with infinite scroll to collect and display unique images in the extension's popup HTML.
+
+### Share to Social Media
+
+-   Allows users to share images directly to social media platforms like Twitter, Facebook, or Instagram.
+
+### View EXIFR Info
+
+-   Provides detailed EXIFR information for images, including camera settings, location, and creation date.
 
 ## Installation
 

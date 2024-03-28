@@ -1,3 +1,4 @@
+import JSZip from 'jszip';
 import { getFileName } from '.';
 import { Image } from '../types';
 
@@ -77,5 +78,47 @@ export const downloadAllImage = (
                     callback(item);
                 });
         });
+    };
+};
+
+export const downloadAllImagesAsZip = (
+    imageUrls: string[],
+    errorCallback: (errorItem: string) => void
+) => {
+    return () => {
+        const zip = new JSZip();
+
+        const downloadPromises = imageUrls.map((imageUrl, index) => {
+            return fetch(imageUrl)
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error(`Failed to fetch ${imageUrl}`);
+                    }
+                    return response.blob();
+                })
+                .then((blob) => {
+                    // Extract filename from URL or use index as a fallback
+                    const fileName =
+                        getFileName(imageUrl) || `image_${index + 1}.jpg`;
+                    zip.file(fileName, blob);
+                })
+                .catch(() => {
+                    errorCallback(imageUrl);
+                });
+        });
+
+        Promise.all(downloadPromises)
+            .then(() => {
+                return zip.generateAsync({ type: 'blob' });
+            })
+            .then((zipBlob) => {
+                const downloadUrl = URL.createObjectURL(zipBlob);
+                const link = document.createElement('a');
+                link.href = downloadUrl;
+                link.download = 'images.zip';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
     };
 };
