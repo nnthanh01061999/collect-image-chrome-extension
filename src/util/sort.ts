@@ -1,35 +1,38 @@
-import { TDir } from '../types';
+import { TDir } from '@/types';
 
 export const sortData = <T>(data: T[], dir: TDir, ...keys: (keyof T)[]) => {
     return data.sort((a, b) => {
-        for (const key of keys) {
-            let comparison = 0; // Initialize comparison variable
+        // Compute composite values for comparison
+        const compositeValueA = keys.reduce((acc, key) => {
+            return acc * Number(a[key]);
+        }, 1);
 
-            switch (dir) {
-                case 'asc':
-                    if (a[key] < b[key]) {
-                        comparison = -1;
-                    } else if (a[key] > b[key]) {
-                        comparison = 1;
-                    }
-                    break;
+        const compositeValueB = keys.reduce((acc, key) => {
+            return acc * Number(b[key]);
+        }, 1);
 
-                default:
-                    if (a[key] > b[key]) {
-                        comparison = -1;
-                    } else if (a[key] < b[key]) {
-                        comparison = 1;
-                    }
-                    break;
-            }
+        let comparison = 0;
 
-            if (comparison !== 0) {
-                // If comparison is not 0, we have a definitive result
-                return comparison;
-            }
+        if (!compositeValueA || !compositeValueB) return comparison;
+
+        switch (dir) {
+            case 'asc':
+                if (compositeValueA < compositeValueB) {
+                    comparison = -1;
+                } else if (compositeValueA > compositeValueB) {
+                    comparison = 1;
+                }
+                break;
+
+            default:
+                if (compositeValueA > compositeValueB) {
+                    comparison = -1;
+                } else if (compositeValueA < compositeValueB) {
+                    comparison = 1;
+                }
+                break;
         }
 
-        // If we reach this point, all keys are equal
-        return 0;
+        return comparison; // Return comparison result
     });
 };

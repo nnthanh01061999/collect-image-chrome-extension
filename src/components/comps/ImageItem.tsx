@@ -61,9 +61,7 @@ function ImageItem(props: Props) {
             <div
                 className={cn([
                     'p-2 w-full grid items-start',
-                    mark
-                        ? 'grid-cols-[368px,36px,36px,36px,36px,36px,36px]'
-                        : 'grid-cols-[440px,36px,36px,36px,36px]',
+                    'grid-cols-[476px,108px]',
                 ])}
             >
                 <div className='grid gap-1'>
@@ -73,9 +71,14 @@ function ImageItem(props: Props) {
                     >
                         {data.src}
                     </p>
-                    <ExifrInfo url={data.src} enabled />
+                    <div className='max-w-[476px]'>
+                        <ExifrInfo url={data.src} enabled />
+                    </div>
                 </div>
-                <div className='contents' onClick={(e) => e.stopPropagation()}>
+                <div
+                    className='grid grid-cols-3'
+                    onClick={(e) => e.stopPropagation()}
+                >
                     <Button
                         title='Download'
                         size='sm'

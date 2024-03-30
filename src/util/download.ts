@@ -1,17 +1,18 @@
 import JSZip from 'jszip';
 import { getFileName } from '.';
-import { Image } from '../types';
+import { Image } from '@/types';
+import ExcelJS from 'exceljs';
 
 export function downloadVideoFromUrl(videoUrl: string, fileName: string) {
-    var xhr = new XMLHttpRequest();
+    const xhr = new XMLHttpRequest();
     xhr.open('GET', videoUrl, true);
     xhr.responseType = 'blob';
 
     xhr.onload = function () {
         if (xhr.status === 200) {
-            var blobUrl = URL.createObjectURL(xhr.response);
+            const blobUrl = URL.createObjectURL(xhr.response);
 
-            var downloadLink = document.createElement('a');
+            const downloadLink = document.createElement('a');
             downloadLink.href = blobUrl;
             downloadLink.download = fileName;
             downloadLink.textContent = 'Download Video';
@@ -62,7 +63,7 @@ export const downloadAllImage = (
                 headers: {},
             })
                 .then((response) => {
-                    response.arrayBuffer().then(function (buffer) {
+                    response.arrayBuffer().then((buffer) => {
                         const url = window.URL.createObjectURL(
                             new Blob([buffer])
                         );
@@ -121,4 +122,29 @@ export const downloadAllImagesAsZip = (
                 document.body.removeChild(link);
             });
     };
+};
+
+export const exportImageToExcel = (imageUrls: string[]) => () => {
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet('Images');
+
+    worksheet.addRow(['Image URL']);
+
+    imageUrls.forEach((imageUrl) => {
+        worksheet.addRow([imageUrl]);
+    });
+
+    workbook.xlsx.writeBuffer().then((buffer) => {
+        const blob = new Blob([buffer], {
+            type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        });
+        const downloadUrl = URL.createObjectURL(blob);
+
+        const link = document.createElement('a');
+        link.href = downloadUrl;
+        link.download = 'image_urls.xlsx';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    });
 };

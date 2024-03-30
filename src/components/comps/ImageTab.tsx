@@ -3,6 +3,7 @@ import ImageCard from '@/components/comps/ImageCard';
 import ImageItem from '@/components/comps/ImageItem';
 import Information from '@/components/comps/Information';
 import Loading from '@/components/comps/Loading';
+import { InputSearch } from '@/components/input/InputSearch';
 import BasePagination from '@/components/ui/base-pagination';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -10,17 +11,23 @@ import { Slider } from '@/components/ui/slider';
 import { paginationViewModeIcons, sortIcons, viewModeIcons } from '@/constants';
 import { cn } from '@/lib/utils';
 import { Image, TDir, TPagination, TView } from '@/types';
-import { downloadAllImage, downloadAllImagesAsZip, sortData } from '@/util';
+import {
+    downloadAllImage,
+    downloadAllImagesAsZip,
+    exportImageToExcel,
+    sortData,
+} from '@/util';
 import usePaginationClient from '@/util/hooks/use-pagination-client';
 import {
     CheckCheck,
     Download,
     FileArchive,
     ScanSearch,
+    Sheet,
     Trash,
     X,
 } from 'lucide-react';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 export type TImageTabProps = {
     loading?: boolean;
@@ -51,12 +58,23 @@ function ImageTab(props: TImageTabProps) {
     const [cols, setCols] = useState<number>(3);
     const [viewMode, setViewMode] = useState<TView>('grid');
     const [paginationMode, setPaginationMode] = useState<TPagination>('none');
+    const [keyword, setKeyword] = useState<string>('');
+
+    const filteredImages = useMemo(() => {
+        if (!keyword) return images;
+        const lowerCaseKeyword = keyword.toLowerCase();
+        return images.filter(
+            (image) =>
+                image.src.toLowerCase().includes(lowerCaseKeyword) ||
+                image.alt.toLowerCase().includes(lowerCaseKeyword)
+        );
+    }, [images, keyword]);
 
     const { data, pagination } = usePaginationClient({
-        data: sortedImage.length ? sortedImage : images,
+        data: sortedImage.length ? sortedImage : filteredImages,
         size:
             paginationMode === 'none'
-                ? (sortedImage.length ? sortedImage : images).length
+                ? (sortedImage.length ? sortedImage : filteredImages).length
                 : 12,
     });
 
@@ -64,10 +82,10 @@ function ImageTab(props: TImageTabProps) {
         setSortedImage(() => {
             switch (sortMode) {
                 case 'none': {
-                    return sortData(images, 'asc', 'width', 'height');
+                    return sortData(filteredImages, 'asc', 'width', 'height');
                 }
                 case 'asc': {
-                    return sortData(images, 'desc', 'width', 'height');
+                    return sortData(filteredImages, 'desc', 'width', 'height');
                 }
                 case 'desc': {
                     return [];
@@ -90,7 +108,7 @@ function ImageTab(props: TImageTabProps) {
             }
         });
         pagination.first();
-    }, [images, pagination, sortMode]);
+    }, [filteredImages, pagination, sortMode]);
 
     const handleChangeViewMode = useCallback(() => {
         setViewMode(() => {
@@ -125,6 +143,65 @@ function ImageTab(props: TImageTabProps) {
             }
         });
     }, [paginationMode]);
+
+    const actions = useMemo(
+        () => [
+            {
+                onClick: handleChangeViewMode,
+                title: 'Change view mode',
+                icon: viewModeIcons[viewMode].icon,
+            },
+            {
+                onClick: handleChangePaginationMode,
+                title: 'Change pagination view',
+                icon: paginationViewModeIcons[paginationMode].icon,
+            },
+            {
+                onClick: handleSort,
+                title: 'Sort images',
+                icon: sortIcons[sortMode].icon,
+            },
+            {
+                onClick: handleSelectAllImage,
+                title: 'Select all images',
+                icon:
+                    selectedImage.length < filteredImages.length ? (
+                        <CheckCheck size={16} />
+                    ) : (
+                        <X size={16} />
+                    ),
+            },
+            {
+                onClick: downloadAllImage(selectedImage, onDownloadError),
+                title: 'Download all selected images',
+                icon: <Download size={16} />,
+            },
+            {
+                onClick: downloadAllImagesAsZip(selectedImage, onDownloadError),
+                title: 'Download all selected images to zip file',
+                icon: <FileArchive size={16} />,
+            },
+            {
+                onClick: exportImageToExcel(selectedImage),
+                title: 'Export all selected images to Excel file',
+                icon: <Sheet size={16} />,
+            },
+        ],
+        [
+            filteredImages.length,
+            handleChangePaginationMode,
+            handleChangeViewMode,
+            handleSelectAllImage,
+            handleSort,
+            onDownloadError,
+            paginationMode,
+            selectedImage,
+            sortMode,
+            viewMode,
+        ]
+    );
+
+    const onSearch = (e: string) => setKeyword(e);
 
     const renderItem = useCallback(
         (image: Image) => {
@@ -165,6 +242,9 @@ function ImageTab(props: TImageTabProps) {
     return (
         <div className='grid gap-2 relative'>
             {loading && <Loading />}
+            <div className='fixed top-3 right-4'>
+                <InputSearch value={keyword} onChange={onSearch} />
+            </div>
             <div className='flex space-x-2 justify-between items-center'>
                 <div className='grid gap-2'>
                     <Information
@@ -173,16 +253,6 @@ function ImageTab(props: TImageTabProps) {
                     />
                 </div>
                 <div className='grid gap-1 grid-flow-col'>
-                    {!!onClearMark && (
-                        <Button
-                            size='icon'
-                            variant='ghost'
-                            onClick={onClearMark}
-                            title='Clear all mark'
-                        >
-                            <Trash size={16} />
-                        </Button>
-                    )}
                     {viewMode === 'grid' && (
                         <Slider
                             value={[cols]}
@@ -192,14 +262,16 @@ function ImageTab(props: TImageTabProps) {
                             className='w-14'
                         />
                     )}
-                    <Button
-                        size='icon'
-                        variant='ghost'
-                        onClick={handleChangeViewMode}
-                        title='Change view mode'
-                    >
-                        {viewModeIcons[viewMode].icon}
-                    </Button>
+                    {onClearMark && (
+                        <Button
+                            size='icon'
+                            variant='ghost'
+                            onClick={onClearMark}
+                            title='Clear all mark'
+                        >
+                            <Trash size={16} />
+                        </Button>
+                    )}
                     {handleShowAllImage && (
                         <Button
                             size='icon'
@@ -211,57 +283,17 @@ function ImageTab(props: TImageTabProps) {
                             <ScanSearch size={16} />
                         </Button>
                     )}
-                    <Button
-                        size='icon'
-                        variant='ghost'
-                        onClick={handleChangePaginationMode}
-                        title='Change pagination view'
-                    >
-                        {paginationViewModeIcons[paginationMode].icon}
-                    </Button>
-
-                    <Button
-                        size='icon'
-                        variant='ghost'
-                        onClick={handleSort}
-                        title='Sort images'
-                    >
-                        {sortIcons[sortMode].icon}
-                    </Button>
-                    <Button
-                        size='icon'
-                        variant='ghost'
-                        onClick={handleSelectAllImage}
-                        title='Select all images'
-                    >
-                        {selectedImage.length < images.length ? (
-                            <CheckCheck size={16} />
-                        ) : (
-                            <X size={16} />
-                        )}
-                    </Button>
-                    <Button
-                        size='icon'
-                        variant='ghost'
-                        onClick={downloadAllImage(
-                            selectedImage,
-                            onDownloadError
-                        )}
-                        title='Download all selected images'
-                    >
-                        <Download size={16} />
-                    </Button>
-                    <Button
-                        size='icon'
-                        variant='ghost'
-                        onClick={downloadAllImagesAsZip(
-                            selectedImage,
-                            onDownloadError
-                        )}
-                        title='Download all selected images to zip file'
-                    >
-                        <FileArchive size={16} />
-                    </Button>
+                    {actions.map((action, index) => (
+                        <Button
+                            key={index}
+                            size='icon'
+                            variant='ghost'
+                            onClick={action.onClick}
+                            title={action.title}
+                        >
+                            {action.icon}
+                        </Button>
+                    ))}
                 </div>
             </div>
             <ScrollArea

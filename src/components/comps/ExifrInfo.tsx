@@ -10,20 +10,23 @@ function ExifrInfo({ children, ...props }: PropsWithChildren<TExifrInfoProps>) {
     const { url, enabled = false } = props;
 
     const [data, setData] = useState<any>();
+    const [loading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
         if (!enabled) return;
+        setLoading(true);
         exifr
             .parse(url, true)
             .then((data) => {
                 setData(data);
             })
-            .catch(() => setData(undefined));
+            .catch(() => setData(undefined))
+            .finally(() => setLoading(false));
     }, [enabled, url]);
 
     return (
-        <div className='grid max-w-60'>
-            <p>{data ? <ReactJson src={data} /> : 'No info'}</p>
+        <div className='grid max-w-65 overflow-auto'>
+            {loading ? 'Loading' : data ? <ReactJson src={data} /> : 'No info'}
         </div>
     );
 }

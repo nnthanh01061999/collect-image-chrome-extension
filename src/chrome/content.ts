@@ -8,6 +8,7 @@ import {
 } from '@/functions';
 import { ChromeActionEnum, ChromeMessage } from '../types';
 import { viewVideoCarousel } from '@/functions/show-video';
+import { markImage } from '@/functions/mark-image';
 
 const actions = {
     GET_DOM: ({ callback }) => {
@@ -34,6 +35,9 @@ const actions = {
     },
     CTX_SHOW_VIDEO: () => {
         viewVideoCarousel();
+    },
+    CTX_MARK_IMAGE: ({ data }) => {
+        markImage({ src: data, alt: data });
     },
 } satisfies Record<
     ChromeActionEnum,

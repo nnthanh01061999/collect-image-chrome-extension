@@ -1,8 +1,15 @@
 import { VIEW_MODAL } from '@/constants';
 
 export const viewImage = (src: string) => {
+    const id = VIEW_MODAL;
+    const modalElement = document.querySelector(`#${id}`);
+    if (modalElement) {
+        modalElement.remove();
+        return;
+    }
+
     const modal = document.createElement('div');
-    modal.id = VIEW_MODAL;
+    modal.id = id;
     modal.style.cssText = `
         position: fixed;
         top: 0;
@@ -72,11 +79,20 @@ export const viewImage = (src: string) => {
     modal.appendChild(closeButton);
     modal.appendChild(modalContent);
     document.body.appendChild(modal);
+
+    document.addEventListener('keydown', handleKeyDown);
 };
 
 export const closeViewModal = () => {
     const modal = document.getElementById(VIEW_MODAL);
     if (modal) {
         modal.remove();
+        document.removeEventListener('keydown', handleKeyDown);
+    }
+};
+
+export const handleKeyDown = (event: KeyboardEvent) => {
+    if (event.key === 'Escape') {
+        closeViewModal();
     }
 };

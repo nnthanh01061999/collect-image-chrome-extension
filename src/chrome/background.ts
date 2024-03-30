@@ -18,6 +18,12 @@ chrome.contextMenus.create({
     contexts: ['page'],
 });
 
+chrome.contextMenus.create({
+    id: ChromeActionEnum.CTX_MARK_IMAGE,
+    title: 'Mark image',
+    contexts: ['image'],
+});
+
 chrome.contextMenus.onClicked.addListener((info, tab) => {
     if (!tab?.id) return;
     chrome.tabs.sendMessage(tab.id, {

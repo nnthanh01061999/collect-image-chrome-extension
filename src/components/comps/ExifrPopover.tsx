@@ -21,8 +21,8 @@ function ExifrPopover({
             <PopoverTrigger asChild onClick={(e) => e.stopPropagation()}>
                 {children}
             </PopoverTrigger>
-            <PopoverContent>
-                <div className='grid max-w-60'>
+            <PopoverContent align='start' side='bottom' avoidCollisions={false}>
+                <div className='grid max-w-60 w-fit'>
                     <ExifrInfo url={url} enabled={open} />
                 </div>
             </PopoverContent>

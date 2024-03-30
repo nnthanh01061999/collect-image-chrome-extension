@@ -4,11 +4,11 @@
 
 The Chrome Extension "Image Viewer" is a tool built using React that enhances your browsing experience by providing various image-related features directly within your Chrome browser. This extension allows users to interact with images on web pages more conveniently and efficiently.
 
-![alt text](https://github.com/nnthanh01061999/collect-image-chrome-extension/blob/main/app-image-1.png?raw=true)
+![alt text](https://github.com/nnthanh01061999/collect-image-chrome-extension/blob/main/app-image-2.png?raw=true)
 
 ## Features
 
-### Get Current Image
+### Collect Image
 
 -   Fetches the currently displayed image on the active page and displays it in the extension's popup HTML.
 
@@ -20,13 +20,21 @@ The Chrome Extension "Image Viewer" is a tool built using React that enhances yo
 
 -   Enables users to download multiple images as a compressed zip file for easier sharing and storage.
 
+### Export Images to Excel
+
+-   Enables users to export multiple images to excel file.
+
+### Filter Images by Keyword
+
+-   Enables users to filter images by keyword, searching through image source URLs or alt attributes to quickly find relevant images.
+
 ### Sort Images
 
 -   Enables users to sort images based on different criteria.
 
 ### View Image Full Screen
 
--   Provides the ability to view an image fullscreen within the current page.
+-   Provides the ability to view an image full screen within the current page.
 
 ### Scroll to Image
 
@@ -42,11 +50,11 @@ The Chrome Extension "Image Viewer" is a tool built using React that enhances yo
     -   Grid: Displays images in a grid layout.
     -   List: Displays images in a list layout.
 
-### Customizable Grid
+### Customizable Grid View Mode
 
 -   Users can adjust the number of columns in the grid view for optimal viewing experience.
 
-### Infinite Page Loading
+### Collect Image for Infinite Page Loading
 
 -   Automatically scrolls to the bottom of pages with infinite scroll to collect and display unique images in the extension's popup HTML.
 
@@ -81,7 +89,7 @@ Contributions to the Image Viewer Chrome Extension are welcome! If you'd like to
 1. Fork the repository.
 2. Create a new branch for your feature (`git checkout -b feature/new-feature`).
 3. Make your changes and ensure tests pass.
-4. Commit your changes (`git commit -am 'Add new feature'`).
+4. Commit your changes (`git commit -m 'Add new feature'`).
 5. Push to the branch (`git push origin feature/new-feature`).
 6. Create a new Pull Request.
 

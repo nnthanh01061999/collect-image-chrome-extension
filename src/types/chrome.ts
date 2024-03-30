@@ -8,6 +8,7 @@ export enum ChromeActionEnum {
     'COLLECT_IMAGE' = 'COLLECT_IMAGE',
     'CTX_MENU_COLLECT_IMAGE' = 'CTX_MENU_COLLECT_IMAGE',
     'CTX_SHOW_VIDEO' = 'CTX_SHOW_VIDEO',
+    'CTX_MARK_IMAGE' = 'CTX_MARK_IMAGE',
 }
 
 export type ChromeMessage = {

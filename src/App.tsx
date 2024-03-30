@@ -118,6 +118,11 @@ function App() {
                 ),
             },
             {
+                value: 'mark',
+                title: 'Mark',
+                content: <MarkTab onDownloadError={onDownloadError} />,
+            },
+            {
                 value: 'video',
                 title: 'Video',
                 content: (
@@ -133,16 +138,13 @@ function App() {
                                     ))}
                                 </div>
                             ) : (
-                                <Empty />
+                                <div className='grid'>
+                                    <Empty />
+                                </div>
                             )}
                         </ScrollArea>
                     </div>
                 ),
-            },
-            {
-                value: 'mark',
-                title: 'Mark',
-                content: <MarkTab onDownloadError={onDownloadError} />,
             },
         ],
         [

@@ -4,8 +4,8 @@ export const getAllImageInPage = () => {
     return {
         images: Array.from(document.getElementsByTagName<'img'>('img')).map(
             (link) => {
-                const width = link.getAttribute('width');
-                const height = link.getAttribute('height');
+                const width = link.naturalWidth;
+                const height = link.naturalHeight;
                 return {
                     src: link.getAttribute('src') ?? '',
                     alt: link.getAttribute('alt') ?? '',

@@ -113,7 +113,7 @@ function ImageCard(props: Props) {
                 </Button>
                 {mark && (
                     <Button
-                        title='Scroll into image'
+                        title='View image'
                         size='sm'
                         variant='ghost'
                         onClick={handleViewImage}
@@ -131,7 +131,7 @@ function ImageCard(props: Props) {
                 </Button>
                 {mark && (
                     <Button
-                        title='Scroll into image'
+                        title='Scroll to image'
                         size='sm'
                         variant='ghost'
                         onClick={handleScrollInto}
@@ -171,12 +171,10 @@ function ImageCard(props: Props) {
                     {data.error}
                 </span>
             </Show>
-            <span className='absolute left-0 top-0 bg-background p-1 border-input border'>
+            <span className='absolute grid grid-flow-col gap-1 left-0 top-0 bg-background border-t-0 border-l-0 rounded-br-md p-1 border-input border'>
                 <ExifrPopover url={data.src}>
                     <Info size={16} />
                 </ExifrPopover>
-            </span>
-            <span className='absolute left-[26px] top-0 bg-background rounded-br-md p-1 border-input border'>
                 <SocialSharePopover url={data.src}>
                     <Share2 size={16} />
                 </SocialSharePopover>
