@@ -6,9 +6,11 @@ import {
     showLoadingModal,
     viewImage,
 } from '@/functions';
-import { ChromeActionEnum, ChromeMessage } from '../types';
-import { viewVideoCarousel } from '@/functions/show-video';
+import { hideAllElementExcludeTag } from '@/functions/just-show-element';
 import { markImage } from '@/functions/mark-image';
+import { showImageMinimap } from '@/functions/show-image-minimap';
+import { viewVideoCarousel } from '@/functions/show-video';
+import { ChromeActionEnum, ChromeMessage } from '@/types';
 
 const actions = {
     GET_DOM: ({ callback }) => {
@@ -17,7 +19,6 @@ const actions = {
     SCROLL_INTO_IMAGE: ({ data }) => {
         scrollIntoImage(data);
     },
-
     SCROLL_INTO_VIDEO: ({ data }) => {
         scrollIntoVideo(data);
     },
@@ -38,6 +39,15 @@ const actions = {
     },
     CTX_MARK_IMAGE: ({ data }) => {
         markImage({ src: data, alt: data });
+    },
+    CTX_JUST_SHOW_VIDEO: () => {
+        hideAllElementExcludeTag('video');
+    },
+    CTX_JUST_SHOW_IMAGE: () => {
+        hideAllElementExcludeTag('img');
+    },
+    CTX_SHOW_IMAGE_MINIMAP: () => {
+        showImageMinimap();
     },
 } satisfies Record<
     ChromeActionEnum,

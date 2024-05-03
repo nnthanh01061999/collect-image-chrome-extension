@@ -1,4 +1,4 @@
-import ExifrInfo from '@/components/comps/ExifrInfo';
+import ExifrInfo from '@/components/app/ExifrInfo';
 import {
     Popover,
     PopoverContent,

@@ -1,7 +1,7 @@
-import Empty from '@/components/comps/Empty';
-import ImageTab from '@/components/comps/ImageTab';
-import MarkTab from '@/components/comps/MarkTab';
-import VideoItem from '@/components/comps/VideoItem';
+import Empty from '@/components/app/Empty';
+import ImageTab from '@/components/app/ImageTab';
+import MarkTab from '@/components/app/MarkTab';
+import VideoItem from '@/components/app/VideoItem';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { cn } from '@/lib/utils';

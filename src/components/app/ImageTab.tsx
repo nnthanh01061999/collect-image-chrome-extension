@@ -1,8 +1,8 @@
-import Empty from '@/components/comps/Empty';
-import ImageCard from '@/components/comps/ImageCard';
-import ImageItem from '@/components/comps/ImageItem';
-import Information from '@/components/comps/Information';
-import Loading from '@/components/comps/Loading';
+import Empty from '@/components/app/Empty';
+import ImageCard from '@/components/app/ImageCard';
+import ImageItem from '@/components/app/ImageItem';
+import Information from '@/components/app/Information';
+import Loading from '@/components/app/Loading';
 import { InputSearch } from '@/components/input/InputSearch';
 import BasePagination from '@/components/ui/base-pagination';
 import { Button } from '@/components/ui/button';

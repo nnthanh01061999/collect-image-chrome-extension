@@ -1,4 +1,4 @@
-import SocialShare, { TSocial } from '@/components/comps/SocialShare';
+import SocialShare, { TSocial } from '@/components/app/SocialShare';
 import {
     Popover,
     PopoverContent,

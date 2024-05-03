@@ -1,4 +1,4 @@
-import { Video } from '../types';
+import { Video } from '@/types';
 
 export const getAllImageInPage = () => {
     return {
@@ -11,6 +11,7 @@ export const getAllImageInPage = () => {
                     alt: link.getAttribute('alt') ?? '',
                     width: width ? +width : 0,
                     height: height ? +height : 0,
+                    top: link.getBoundingClientRect().top,
                 };
             }
         ),

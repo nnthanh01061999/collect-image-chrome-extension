@@ -1,4 +1,4 @@
-import { ChromeActionEnum, ChromeResponse } from '../types';
+import { ChromeActionEnum, ChromeResponse } from '@/types';
 
 export const sendChromeMessage = ({
     type,

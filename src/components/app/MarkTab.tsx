@@ -1,4 +1,4 @@
-import ImageTab, { TImageTabProps } from '@/components/comps/ImageTab';
+import ImageTab, { TImageTabProps } from '@/components/app/ImageTab';
 import { CHROME_DATA, CHROME_TEMPLATE } from '@/constants';
 import { Image } from '@/types';
 import { useCallback, useEffect, useState } from 'react';

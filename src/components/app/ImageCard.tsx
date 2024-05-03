@@ -1,5 +1,5 @@
-import ExifrPopover from '@/components/comps/ExifrPopover';
-import SocialSharePopover from '@/components/comps/SocialSharePopover';
+import ExifrPopover from '@/components/app/ExifrPopover';
+import SocialSharePopover from '@/components/app/SocialSharePopover';
 import Show from '@/components/condition/Show';
 import { Button } from '@/components/ui/button';
 import { markImage } from '@/functions/mark-image';
