@@ -9,7 +9,7 @@ chrome.contextMenus.create({
 chrome.contextMenus.create({
     id: ChromeActionEnum.CTX_SHOW_VIDEO,
     title: 'Show Video',
-    contexts: ['page'],
+    contexts: ['all'],
 });
 
 chrome.contextMenus.create({
@@ -21,19 +21,19 @@ chrome.contextMenus.create({
 chrome.contextMenus.create({
     id: ChromeActionEnum.CTX_JUST_SHOW_VIDEO,
     title: 'Just show video',
-    contexts: ['page'],
+    contexts: ['all'],
 });
 
 chrome.contextMenus.create({
     id: ChromeActionEnum.CTX_JUST_SHOW_IMAGE,
     title: 'Just show image',
-    contexts: ['page'],
+    contexts: ['all'],
 });
 
 chrome.contextMenus.create({
     id: ChromeActionEnum.CTX_SHOW_IMAGE_MINIMAP,
     title: 'Show minimap of image',
-    contexts: ['page'],
+    contexts: ['all'],
 });
 
 chrome.contextMenus.onClicked.addListener((info, tab) => {

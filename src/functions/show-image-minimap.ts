@@ -4,6 +4,8 @@ import { Image } from '@/types';
 import { scrollIntoImage } from '@/functions/scroll-to-image';
 import { viewImage } from '@/functions/view-image';
 
+const VIEW_PORT_DIV = 'viewport-div';
+
 export const showImageMinimap = () => {
     const id = IMAGE_MINIMAP;
     const modalElement = document.querySelector(`#${id}`);
@@ -69,6 +71,21 @@ export const showImageMinimap = () => {
         align-items: center;
       `;
 
+    const resizeDiv = document.createElement('button');
+    resizeDiv.style.cssText = `
+        position: absolute;
+        display: block;
+        height: 100%;
+        width: 2px;
+        background-color: rgba(0, 0, 0, 0.5);
+        cursor: col-resize;
+        right: 100%;
+        top: 0%;
+        padding: 0px;
+    `;
+
+    modal.appendChild(resizeDiv);
+
     const closeButton = document.createElement('button');
     closeButton.style.cssText = `
         display: inline-flex;
@@ -81,19 +98,19 @@ export const showImageMinimap = () => {
         outline: none;
         background-color: rgb(9, 9, 11);
         color: rgb(250, 250, 250);
-        position: fixed;
+        position: absolute;
         padding: 4px;
         width: 20px;
         height: 20px;
         top: 0px;
-        right: 136px;
+        right: 100%;
         cursor: pointer;
         border: none;
     `;
 
     closeButton.textContent = 'X';
     closeButton.onclick = () => {
-        closeImageTree();
+        closeImageMinimap();
     };
 
     modal.appendChild(closeButton);
@@ -124,7 +141,7 @@ export const showImageMinimap = () => {
         const groupElement = document.createElement('div');
         groupElement.style.cssText = `
             display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
+            grid-template-columns: repeat(auto-fill, 31px);
             position: absolute;
             right: 0;
             top: ${index * 10}%;
@@ -144,9 +161,9 @@ export const showImageMinimap = () => {
 
             imageElement.style.cssText = `
             object-cover: contain;
-            width: 30px;
+            width: auto;
             height: auto;
-            max-height: 30px;
+            max-width: 31px;
             cursor: pointer;
         `;
 
@@ -167,24 +184,30 @@ export const showImageMinimap = () => {
     document.body.appendChild(modal);
 
     drawViewportDiv();
-
+    //esc
     document.addEventListener('keydown', handleKeyDown);
-
+    //draw viewport
     window.addEventListener('scroll', drawViewportDiv);
+    //resize
+    resizeDiv.addEventListener('mousedown', startResize);
+    window.addEventListener('mousemove', resize);
+    window.addEventListener('mouseup', stopResize);
 };
 
-const closeImageTree = () => {
+const closeImageMinimap = () => {
     const modal = document.getElementById(IMAGE_MINIMAP);
     if (modal) {
         modal.remove();
         document.removeEventListener('keydown', handleKeyDown);
         window.removeEventListener('scroll', drawViewportDiv);
+        window.removeEventListener('mousemove', resize);
+        window.removeEventListener('mouseup', stopResize);
     }
 };
 
 const handleKeyDown = (event: KeyboardEvent) => {
     if (event.key === 'Escape') {
-        closeImageTree();
+        closeImageMinimap();
     }
 };
 
@@ -201,7 +224,6 @@ const drawViewportDiv = () => {
     const position = Math.floor((window.scrollY / bodyHeight) * 100);
 
     if (viewportDiv) {
-        viewportDiv.style.width = '136px';
         viewportDiv.style.height = `${
             (viewportHeight / bodyHeight) * viewportHeight
         }px`;
@@ -211,13 +233,46 @@ const drawViewportDiv = () => {
     }
 
     const newDiv = document.createElement('div');
-    newDiv.id = 'viewport-div';
+    newDiv.id = VIEW_PORT_DIV;
     newDiv.style.position = 'fixed';
     newDiv.style.backgroundColor = 'rgba(0, 0, 0, 0.3)';
-    newDiv.style.width = '136px';
+    newDiv.style.minWidth = '136px';
     newDiv.style.height = `${(viewportHeight / bodyHeight) * viewportHeight}px`;
     newDiv.style.right = '0px';
     newDiv.style.top = `${position}%`;
     newDiv.style.zIndex = '1';
     parent.appendChild(newDiv);
 };
+
+//RESIZE
+
+// Variables for resizing
+let isResizing = false;
+let initialX = 0;
+let initialWidth = 0;
+
+// Function to start resizing
+function startResize(event: MouseEvent) {
+    isResizing = true;
+    initialX = event.clientX;
+    const modalElement = document.querySelector(`#${IMAGE_MINIMAP}`);
+    initialWidth = parseFloat(
+        window.getComputedStyle(modalElement as HTMLElement).width
+    );
+}
+
+// Function to resize
+function resize(event: MouseEvent) {
+    const modalElement = document.querySelector(`#${IMAGE_MINIMAP}`) as any;
+    const viewportElement = document.querySelector(`#${VIEW_PORT_DIV}`) as any;
+    if (isResizing && modalElement) {
+        const width = Math.max(initialWidth + (event.clientX - initialX), 136);
+        modalElement.style.width = `${width}px`;
+        viewportElement.style.width = `${width}px`;
+    }
+}
+
+// Function to stop resizing
+function stopResize() {
+    isResizing = false;
+}

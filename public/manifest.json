@@ -1,11 +1,11 @@
 {
-    "name": "Collect Images",
-    "description": "This extension help you collect image on current page.",
+    "name": "Image Toolkit",
+    "description": "This extension helps you interact with images such as collecting, viewing, marking, displaying minimap,... in the current page.",
     "version": "1.0",
     "manifest_version": 3,
     "action": {
         "default_popup": "index.html",
-        "default_title": "Collect Images"
+        "default_title": "Image toolkit"
     },
     "content_scripts": [
         {
