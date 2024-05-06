@@ -24,7 +24,7 @@ function App() {
                   ])
                 : setSelectedImage([...selectedImage, item]);
         },
-        [selectedImage]
+        [selectedImage],
     );
 
     const onDownloadError = (src: string) => {
@@ -32,8 +32,8 @@ function App() {
             prevImage.map((item) =>
                 item.src === src
                     ? { ...item, error: 'Error download images!' }
-                    : item
-            )
+                    : item,
+            ),
         );
     };
 
@@ -62,7 +62,7 @@ function App() {
 
                 images = [
                     ...((new Map(
-                        images?.map((item) => [item['src'], item])
+                        images?.map((item) => [item['src'], item]),
                     ).values() as any) || []),
                 ];
 
@@ -89,7 +89,7 @@ function App() {
 
                 images = [
                     ...((new Map(
-                        images?.map((item) => [item['src'], item])
+                        images?.map((item) => [item['src'], item]),
                     ).values() as any) || []),
                 ];
 
@@ -154,7 +154,7 @@ function App() {
             onSelect,
             selectedImage,
             videos,
-        ]
+        ],
     );
 
     return (

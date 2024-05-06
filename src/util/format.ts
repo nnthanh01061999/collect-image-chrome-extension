@@ -1,13 +1,14 @@
-export const checkImage = (src: string, domain: string, url: string = '') => {
+export const checkImage = (src: string, domain: string, url = '') => {
     if (src.includes('base64')) return src;
     if (src.includes('http://') || src.includes('https://')) {
         return src;
     } else {
-        let src_ = src.charAt(0) === '/' ? src : '/' + src;
+        const src_ = src.startsWith('/') ? src : '/' + src;
         if (url.includes('http://')) {
-            return 'http://' + domain + src_;
-        } else if (url.includes('https://')) {
-            return 'https://' + domain + src_;
+            return `http://${domain}${src_}`;
+        }
+        if (url.includes('https://')) {
+            return `https://${domain}${src_}`;
         }
     }
     return '';
@@ -19,14 +20,14 @@ export const getFileName = (url: string) => {
     return !fileName
         ? 'image.png'
         : fileName.match(
-              /\w+\.(jpg|jpeg|jfif|pjpeg|pjp|gif|apng|png|tif|tiff|bmp|svg|webp|ico|cur|bmp)$/gi
-          )
-        ? fileName
-        : fileName + '.png';
+                /\w+\.(jpg|jpeg|jfif|pjpeg|pjp|gif|apng|png|tif|tiff|bmp|svg|webp|ico|cur|bmp)$/gi,
+            )
+          ? fileName
+          : fileName + '.png';
 };
 
 export const extractHostname = (url: string) => {
-    var hostname;
+    let hostname;
     //find & remove protocol (http, ftp, etc.) and get hostname
 
     if (url.indexOf('//') > -1) {

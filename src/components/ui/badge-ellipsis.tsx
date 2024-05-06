@@ -71,7 +71,7 @@ function BadgeEllipsis({
                 ref={showRef}
                 className={cn(
                     'w-full grid grid-flow-col gap-1 justify-start items-center overflow-hidden',
-                    className
+                    className,
                 )}
                 {...props}
             >
@@ -94,7 +94,7 @@ function BadgeEllipsis({
                 ref={hideRef}
                 className={cn(
                     'absolute top-0 left-0 -z-10 opacity-0 w-full grid grid-flow-col gap-1 justify-start items-center px-2 overflow-hidden',
-                    className
+                    className,
                 )}
                 {...props}
                 style={{

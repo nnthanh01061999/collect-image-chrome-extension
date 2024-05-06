@@ -17,7 +17,7 @@ function MarkTab(props: TMarkTabProps) {
                   ])
                 : setSelectedImage([...selectedImage, item]);
         },
-        [selectedImage]
+        [selectedImage],
     );
 
     const handleSelectAllImage = useCallback(() => {
@@ -55,7 +55,7 @@ function MarkTab(props: TMarkTabProps) {
                         const parseData = data ? JSON.parse(data) : [];
                         setData(parseData);
                     });
-            }
+            },
         );
     }, []);
 

@@ -7,7 +7,7 @@ import {
     PaginationLink,
     PaginationNext,
 } from '@/components/ui/pagination';
-import { usePagination } from '@/util';
+import { usePagination } from '@/hooks';
 
 type TBasePaginationProps = {
     pagination: ReturnType<typeof usePagination>;

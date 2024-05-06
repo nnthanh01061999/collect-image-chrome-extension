@@ -1,15 +1,16 @@
 import {
     autoScrollAndGetImages,
     getAllImageInPage,
+    hideAllElementExcludeTag,
+    markImage,
     scrollIntoImage,
     scrollIntoVideo,
+    showImageMinimap,
     showLoadingModal,
     viewImage,
+    viewVideoCarousel,
 } from '@/functions';
-import { hideAllElementExcludeTag } from '@/functions/just-show-element';
-import { markImage } from '@/functions/mark-image';
-import { showImageMinimap } from '@/functions/show-image-minimap';
-import { viewVideoCarousel } from '@/functions/show-video';
+
 import { ChromeActionEnum, ChromeMessage } from '@/types';
 
 const actions = {
@@ -61,5 +62,5 @@ chrome.runtime.onMessage.addListener(
             data: message.data,
             callback: sendResponse,
         });
-    }
+    },
 );

@@ -39,7 +39,7 @@ export const downLoadImage = (item: Image, callback: (src: string) => void) => {
                 response.arrayBuffer().then(function (buffer) {
                     const url = window.URL.createObjectURL(new Blob([buffer]));
                     const link = document.createElement('a');
-                    let fileName = getFileName(item.src);
+                    const fileName = getFileName(item.src);
                     link.href = url;
                     link.setAttribute('download', fileName);
                     document.body.appendChild(link);
@@ -54,7 +54,7 @@ export const downLoadImage = (item: Image, callback: (src: string) => void) => {
 
 export const downloadAllImage = (
     data: string[],
-    callback: (item: string) => void
+    callback: (item: string) => void,
 ) => {
     return () => {
         data?.forEach((item) => {
@@ -65,9 +65,9 @@ export const downloadAllImage = (
                 .then((response) => {
                     response.arrayBuffer().then((buffer) => {
                         const url = window.URL.createObjectURL(
-                            new Blob([buffer])
+                            new Blob([buffer]),
                         );
-                        let fileName = getFileName(item);
+                        const fileName = getFileName(item);
                         const link = document.createElement('a');
                         link.href = url;
                         link.setAttribute('download', fileName);
@@ -84,7 +84,7 @@ export const downloadAllImage = (
 
 export const downloadAllImagesAsZip = (
     imageUrls: string[],
-    errorCallback: (errorItem: string) => void
+    errorCallback: (errorItem: string) => void,
 ) => {
     return () => {
         const zip = new JSZip();

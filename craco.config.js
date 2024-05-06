@@ -13,7 +13,7 @@ module.exports = {
                     main: [
                         env === 'development' &&
                             require.resolve(
-                                'react-dev-utils/webpackHotDevClient'
+                                'react-dev-utils/webpackHotDevClient',
                             ),
                         paths.appIndexJs,
                     ].filter(Boolean),

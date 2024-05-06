@@ -83,7 +83,7 @@ export const viewImage = (src: string) => {
     document.addEventListener('keydown', handleKeyDown);
 };
 
-export const closeViewModal = () => {
+const closeViewModal = () => {
     const modal = document.getElementById(VIEW_MODAL);
     if (modal) {
         modal.remove();
@@ -91,7 +91,7 @@ export const closeViewModal = () => {
     }
 };
 
-export const handleKeyDown = (event: KeyboardEvent) => {
+const handleKeyDown = (event: KeyboardEvent) => {
     if (event.key === 'Escape') {
         closeViewModal();
     }

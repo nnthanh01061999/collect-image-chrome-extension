@@ -20,7 +20,7 @@ const badgeVariants = cva(
         defaultVariants: {
             variant: 'default',
         },
-    }
+    },
 );
 
 export interface BadgeProps
@@ -47,7 +47,7 @@ function Badge({
             className={cn(
                 badgeVariants({ variant }),
                 onClose ? 'pe-8 relative whitespace-nowrap' : '',
-                className
+                className,
             )}
             {...props}
         >

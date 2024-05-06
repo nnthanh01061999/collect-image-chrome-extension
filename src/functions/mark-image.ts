@@ -14,7 +14,7 @@ export const markImage = (data: Image) => {
         ];
         const uniqueData = [
             ...((new Map(
-                newData.map((item) => [item['src'], item])
+                newData.map((item) => [item['src'], item]),
             ).values() as any) || []),
         ];
         chrome.storage.sync.set({

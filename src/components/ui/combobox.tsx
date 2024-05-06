@@ -42,16 +42,16 @@ export type ComboboxProps<M extends TMode, V extends TValueMode> = {
             ? string
             : IOption<string>
         : V extends 'string'
-        ? string[]
-        : IOption<string>[];
+          ? string[]
+          : IOption<string>[];
     loading?: boolean;
     onChange: M extends 'single'
         ? V extends 'string'
             ? (value?: string) => void
             : (value?: IOption<string>) => void
         : V extends 'string'
-        ? (value?: string[]) => void
-        : (value?: IOption<string>[]) => void;
+          ? (value?: string[]) => void
+          : (value?: IOption<string>[]) => void;
     onBlur?: () => void;
     onSearch?: (value: string) => void;
     maxItemScroll?: number;
@@ -121,7 +121,7 @@ const Combobox = forwardRef<
                 const value = props.value
                     ? props.value.find((item) => item.value === currentValue)
                         ? props.value.filter(
-                              (item) => item.value !== currentValue
+                              (item) => item.value !== currentValue,
                           )
                         : [...props.value, valueObj]
                     : [valueObj];
@@ -130,11 +130,11 @@ const Combobox = forwardRef<
         } else if (props.mode === 'single') {
             if (props.valueMode === 'string') {
                 props.onChange(
-                    currentValue === props.value ? undefined : currentValue
+                    currentValue === props.value ? undefined : currentValue,
                 );
             } else {
                 props.onChange(
-                    currentValue === props.value?.value ? undefined : valueObj
+                    currentValue === props.value?.value ? undefined : valueObj,
                 );
             }
             setOpen(false);
@@ -146,14 +146,14 @@ const Combobox = forwardRef<
             if (props.valueMode === 'string') {
                 if (props.value.includes(currentValue))
                     props.onChange(
-                        props.value.filter((item) => item !== currentValue)
+                        props.value.filter((item) => item !== currentValue),
                     );
             } else {
                 if (props.value.find((v) => v.value === currentValue))
                     props.onChange(
                         props.value.filter(
-                            (item) => item.value !== currentValue
-                        )
+                            (item) => item.value !== currentValue,
+                        ),
                     );
             }
         }
@@ -169,7 +169,7 @@ const Combobox = forwardRef<
         if (props.valueMode === 'object') return props.value;
         const valueMap: Record<string, number> = props.value.reduce(
             (prev, cur, index) => ({ ...prev, [cur]: index + 1 }),
-            {}
+            {},
         );
         return options
             .filter((item) => valueMap[item.value])
@@ -200,11 +200,11 @@ const Combobox = forwardRef<
                     ) : props.value ? (
                         props.valueMode === 'string' ? (
                             options.find(
-                                (option) => option.value === props.value
+                                (option) => option.value === props.value,
                             )?.label
                         ) : (
                             options.find(
-                                (option) => option.value === props.value.value
+                                (option) => option.value === props.value.value,
                             )?.label
                         )
                     ) : (
@@ -227,7 +227,7 @@ const Combobox = forwardRef<
                         <Search className='mr-2 h-4 w-4 shrink-0 opacity-50' />
                         <CommandInput
                             className={cn(
-                                'flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50'
+                                'flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50',
                             )}
                             value={search}
                             onValueChange={onChangeSearch}
@@ -268,7 +268,7 @@ const Combobox = forwardRef<
                                 ])}
                                 ref={() => {
                                     const option = document.querySelector(
-                                        'div.relative[cmdk-item][data-value="option_0"]'
+                                        'div.relative[cmdk-item][data-value="option_0"]',
                                     );
                                     setOptionHeight(option?.clientHeight || 32);
                                 }}
@@ -293,20 +293,20 @@ const Combobox = forwardRef<
                                                                   ?.value ===
                                                               option.value
                                                         : props.valueMode ===
-                                                          'string'
-                                                        ? props.value?.includes(
-                                                              option.value
-                                                          )
-                                                        : props.value?.find(
-                                                              (v) =>
-                                                                  String(
-                                                                      v.value
-                                                                  ) ===
-                                                                  option.value
-                                                          )
+                                                            'string'
+                                                          ? props.value?.includes(
+                                                                option.value,
+                                                            )
+                                                          : props.value?.find(
+                                                                (v) =>
+                                                                    String(
+                                                                        v.value,
+                                                                    ) ===
+                                                                    option.value,
+                                                            )
                                                 )
                                                     ? 'opacity-100'
-                                                    : 'opacity-0'
+                                                    : 'opacity-0',
                                             )}
                                         />
                                         {option.label}
@@ -335,7 +335,7 @@ export default Combobox as unknown as <
         | ComboboxProps<'single', 'string'>
         | ComboboxProps<'single', 'object'>
         | ComboboxProps<'multiple', 'string'>
-        | ComboboxProps<'multiple', 'object'>
+        | ComboboxProps<'multiple', 'object'>,
 >(
-    props: T
+    props: T,
 ) => JSX.Element;

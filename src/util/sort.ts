@@ -19,7 +19,8 @@ export const sortData = <T>(data: T[], dir: TDir, ...keys: (keyof T)[]) => {
             case 'asc':
                 if (compositeValueA < compositeValueB) {
                     comparison = -1;
-                } else if (compositeValueA > compositeValueB) {
+                }
+                if (compositeValueA > compositeValueB) {
                     comparison = 1;
                 }
                 break;
@@ -27,12 +28,13 @@ export const sortData = <T>(data: T[], dir: TDir, ...keys: (keyof T)[]) => {
             default:
                 if (compositeValueA > compositeValueB) {
                     comparison = -1;
-                } else if (compositeValueA < compositeValueB) {
+                }
+                if (compositeValueA < compositeValueB) {
                     comparison = 1;
                 }
                 break;
         }
 
-        return comparison; // Return comparison result
+        return comparison;
     });
 };

@@ -72,7 +72,7 @@ export const showLoadingModal = () => {
     document.body.appendChild(modal);
 };
 
-export const closeLoadingModal = () => {
+const closeLoadingModal = () => {
     const modal = document.getElementById(LOADING_MODAL);
     if (modal) {
         modal.remove();
@@ -89,7 +89,7 @@ export const autoScrollAndGetImages = () => {
     function scrollAndCollectImages() {
         const currentScrollPosition = Math.max(
             previousScrollPosition + scrollIncrement,
-            document.documentElement.scrollHeight - window.innerHeight
+            document.documentElement.scrollHeight - window.innerHeight,
         );
 
         window.scrollTo(0, currentScrollPosition);
@@ -117,7 +117,7 @@ export const autoScrollAndGetImages = () => {
         }
         const uniqueData = [
             ...((new Map(
-                images.map((item) => [item['src'], item])
+                images.map((item) => [item['src'], item]),
             ).values() as any) || []),
         ];
         return { images: uniqueData };

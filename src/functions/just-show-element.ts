@@ -1,5 +1,5 @@
 export const hideAllElementExcludeTag = <K extends keyof HTMLElementTagNameMap>(
-    tagName: K
+    tagName: K,
 ) => {
     const linkElements = document.getElementsByTagName('link');
     const styleElements = document.getElementsByTagName('style');
@@ -13,7 +13,7 @@ export const hideAllElementExcludeTag = <K extends keyof HTMLElementTagNameMap>(
     }
 
     const allElements = document.querySelectorAll(
-        '*'
+        '*',
     ) as unknown as HTMLElement[];
 
     allElements.forEach((element) => {

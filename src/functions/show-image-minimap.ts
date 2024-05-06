@@ -22,7 +22,7 @@ export const showImageMinimap = () => {
 
     const images: Image[] = [
         ...((new Map(
-            originalImages?.map((item) => [item['src'], item])
+            originalImages?.map((item) => [item['src'], item]),
         ).values() as any) || []),
     ];
 
@@ -31,30 +31,71 @@ export const showImageMinimap = () => {
     const bodyHeight = (document.querySelector('body')?.scrollHeight ||
         0) as number;
 
+    const styleElement = createStyleElement();
+    // Append the <style> element to the <head> or <body> of the document
+    document.head.appendChild(styleElement);
+
+    const modal = createModalDiv(id);
+
+    const resizeDiv = createResizeDiv();
+    modal.appendChild(resizeDiv);
+
+    const closeButton = createCloseButton();
+    modal.appendChild(closeButton);
+
+    const imagesWithPosition = getImagesWithPosition(images, bodyHeight);
+
+    const contentElement = createContentDiv();
+
+    imagesWithPosition?.forEach((images, index) => {
+        const groupElement = createGroupImageDiv(index);
+        images?.forEach((image) => {
+            const imageElement = createImageDiv(image);
+            groupElement.appendChild(imageElement);
+        });
+        contentElement.appendChild(groupElement);
+    });
+
+    modal.appendChild(contentElement);
+
+    document.body.appendChild(modal);
+
+    drawViewportDiv();
+    //draw viewport
+    window.addEventListener('scroll', drawViewportDiv);
+    //esc
+    document.addEventListener('keydown', handleKeyDown);
+    //resize
+    resizeDiv.addEventListener('mousedown', startResize);
+    window.addEventListener('mousemove', resize);
+    window.addEventListener('mouseup', stopResize);
+};
+
+const createStyleElement = () => {
     const styleElement = document.createElement('style');
 
     // Set the CSS rules as text content
     styleElement.textContent = `
-    .scrollbar-hide::-webkit-scrollbar-thumb {
-        display: none;
-    }
+        .scrollbar-hide::-webkit-scrollbar-thumb {
+            display: none;
+        }
 
-    /* Hide the scrollbar track (Firefox) */
-    .scrollbar-hide {
-        scrollbar-width: none;
-    }
+        /* Hide the scrollbar track (Firefox) */
+        .scrollbar-hide {
+            scrollbar-width: none;
+        }
 
-    /* Hide the scrollbar track (IE/Edge) */
-    .scrollbar-hide::-webkit-scrollbar {
-        width: 0;
-        display: none;
-        background: transparent; /* Optional: If you want to hide the scrollbar track */
-    }
-`;
+        /* Hide the scrollbar track (IE/Edge) */
+        .scrollbar-hide::-webkit-scrollbar {
+            width: 0;
+            display: none;
+            background: transparent; /* Optional: If you want to hide the scrollbar track */
+        }
+    `;
+    return styleElement;
+};
 
-    // Append the <style> element to the <head> or <body> of the document
-    document.head.appendChild(styleElement);
-
+const createModalDiv = (id: string) => {
     const modal = document.createElement('div');
     modal.id = id;
     modal.style.cssText = `
@@ -70,8 +111,11 @@ export const showImageMinimap = () => {
         justify-content: center;
         align-items: center;
       `;
+    return modal;
+};
 
-    const resizeDiv = document.createElement('button');
+const createResizeDiv = () => {
+    const resizeDiv = document.createElement('div');
     resizeDiv.style.cssText = `
         position: absolute;
         display: block;
@@ -83,9 +127,10 @@ export const showImageMinimap = () => {
         top: 0%;
         padding: 0px;
     `;
+    return resizeDiv;
+};
 
-    modal.appendChild(resizeDiv);
-
+const createCloseButton = () => {
     const closeButton = document.createElement('button');
     closeButton.style.cssText = `
         display: inline-flex;
@@ -112,10 +157,65 @@ export const showImageMinimap = () => {
     closeButton.onclick = () => {
         closeImageMinimap();
     };
+    return closeButton;
+};
 
-    modal.appendChild(closeButton);
+const createContentDiv = () => {
+    const contentElement = document.createElement('div');
+    contentElement.style.cssText = `
+        display: grid;
+        position: relative;
+        height: 100%;
+        width: 100%;
+        gap: 2px;
+    `;
+    return contentElement;
+};
 
-    const imagesWithPosition = images.reduce(
+const createImageDiv = (image: Image) => {
+    const imageElement = document.createElement('img');
+
+    imageElement.style.cssText = `
+            object-cover: contain;
+            width: auto;
+            height: auto;
+            max-width: 31px;
+            cursor: pointer;
+        `;
+
+    imageElement.src = image.src;
+    imageElement.onclick = () => {
+        scrollIntoImage(image.src);
+    };
+    imageElement.ondblclick = () => {
+        viewImage(imageElement.src);
+    };
+    return imageElement;
+};
+
+const createGroupImageDiv = (index: number) => {
+    const groupElement = document.createElement('div');
+    groupElement.style.cssText = `
+        display: grid;
+        grid-template-columns: repeat(auto-fill, 31px);
+        position: absolute;
+        right: 0;
+        top: ${index * 10}%;
+        gap: 2px;
+        align-items: flex-start;
+        z-index: 2;
+        height: 10%;
+        overflow: auto;
+        width: 100%;
+        padding: 0px 2px;
+    `;
+
+    groupElement.classList.add('scrollbar-hide');
+    return groupElement;
+};
+
+const getImagesWithPosition = (images: Image[], bodyHeight: number) => {
+    return images.reduce(
         (prev, cur) => {
             const percent = ((cur?.top || 0) / bodyHeight) * 100;
             const position = Math.floor(percent / 10);
@@ -126,83 +226,59 @@ export const showImageMinimap = () => {
                 ...prev.slice(position + 1),
             ];
         },
-        Array(10).map(() => [] as Image[])
+        Array(10).map(() => [] as Image[]),
     );
-
-    const contentElement = document.createElement('div');
-    contentElement.style.cssText = `
-        display: block;
-        position: relative;
-        height: 100%;
-        width: 100%;
-    `;
-
-    imagesWithPosition?.forEach((images, index) => {
-        const groupElement = document.createElement('div');
-        groupElement.style.cssText = `
-            display: grid;
-            grid-template-columns: repeat(auto-fill, 31px);
-            position: absolute;
-            right: 0;
-            top: ${index * 10}%;
-            gap: 2px;
-            align-items: center;
-            z-index: 2;
-            height: 10%;
-            overflow: auto;
-            width: 100%;
-            padding: 0px 2px;
-        `;
-
-        groupElement.classList.add('scrollbar-hide');
-
-        images?.forEach((image) => {
-            const imageElement = document.createElement('img');
-
-            imageElement.style.cssText = `
-            object-cover: contain;
-            width: auto;
-            height: auto;
-            max-width: 31px;
-            cursor: pointer;
-        `;
-
-            imageElement.src = image.src;
-            imageElement.onclick = () => {
-                scrollIntoImage(image.src);
-            };
-            imageElement.ondblclick = () => {
-                viewImage(imageElement.src);
-            };
-            groupElement.appendChild(imageElement);
-        });
-        contentElement.appendChild(groupElement);
-    });
-
-    modal.appendChild(contentElement);
-
-    document.body.appendChild(modal);
-
-    drawViewportDiv();
-    //esc
-    document.addEventListener('keydown', handleKeyDown);
-    //draw viewport
-    window.addEventListener('scroll', drawViewportDiv);
-    //resize
-    resizeDiv.addEventListener('mousedown', startResize);
-    window.addEventListener('mousemove', resize);
-    window.addEventListener('mouseup', stopResize);
 };
 
+//RESIZE
+
+// Variables for resizing
+let isResizing = false;
+let initialX = 0;
+let initialWidth = 0;
+
+//start resizing
+const startResize = (event: MouseEvent) => {
+    isResizing = true;
+    initialX = event.clientX;
+    const modalElement = document.querySelector(`#${IMAGE_MINIMAP}`);
+    initialWidth = parseFloat(
+        window.getComputedStyle(modalElement as HTMLElement).width,
+    );
+};
+
+//resize
+const resize = (event: MouseEvent) => {
+    const modalElement = document.querySelector(
+        `#${IMAGE_MINIMAP}`,
+    ) as HTMLDivElement;
+
+    const viewportElement = document.querySelector(
+        `#${VIEW_PORT_DIV}`,
+    ) as HTMLDivElement;
+
+    if (isResizing && modalElement) {
+        const width = Math.max(initialWidth + (event.clientX - initialX), 136);
+        modalElement.style.width = `${width}px`;
+        viewportElement.style.width = `${width}px`;
+    }
+};
+
+//stop resize
+const stopResize = () => {
+    isResizing = false;
+};
+
+//Close event
 const closeImageMinimap = () => {
     const modal = document.getElementById(IMAGE_MINIMAP);
-    if (modal) {
-        modal.remove();
-        document.removeEventListener('keydown', handleKeyDown);
-        window.removeEventListener('scroll', drawViewportDiv);
-        window.removeEventListener('mousemove', resize);
-        window.removeEventListener('mouseup', stopResize);
-    }
+    if (!modal) return;
+
+    modal.remove();
+    document.removeEventListener('keydown', handleKeyDown);
+    window.removeEventListener('scroll', drawViewportDiv);
+    window.removeEventListener('mousemove', resize);
+    window.removeEventListener('mouseup', stopResize);
 };
 
 const handleKeyDown = (event: KeyboardEvent) => {
@@ -211,8 +287,9 @@ const handleKeyDown = (event: KeyboardEvent) => {
     }
 };
 
+//DRAW VIEWPORT
 const drawViewportDiv = () => {
-    const viewportDiv = document.getElementById('viewport-div');
+    const viewportDiv = document.getElementById(VIEW_PORT_DIV);
     const parent = document.querySelector(`#${IMAGE_MINIMAP}`);
     if (!parent) return;
 
@@ -233,6 +310,7 @@ const drawViewportDiv = () => {
     }
 
     const newDiv = document.createElement('div');
+
     newDiv.id = VIEW_PORT_DIV;
     newDiv.style.position = 'fixed';
     newDiv.style.backgroundColor = 'rgba(0, 0, 0, 0.3)';
@@ -241,38 +319,6 @@ const drawViewportDiv = () => {
     newDiv.style.right = '0px';
     newDiv.style.top = `${position}%`;
     newDiv.style.zIndex = '1';
+
     parent.appendChild(newDiv);
 };
-
-//RESIZE
-
-// Variables for resizing
-let isResizing = false;
-let initialX = 0;
-let initialWidth = 0;
-
-// Function to start resizing
-function startResize(event: MouseEvent) {
-    isResizing = true;
-    initialX = event.clientX;
-    const modalElement = document.querySelector(`#${IMAGE_MINIMAP}`);
-    initialWidth = parseFloat(
-        window.getComputedStyle(modalElement as HTMLElement).width
-    );
-}
-
-// Function to resize
-function resize(event: MouseEvent) {
-    const modalElement = document.querySelector(`#${IMAGE_MINIMAP}`) as any;
-    const viewportElement = document.querySelector(`#${VIEW_PORT_DIV}`) as any;
-    if (isResizing && modalElement) {
-        const width = Math.max(initialWidth + (event.clientX - initialX), 136);
-        modalElement.style.width = `${width}px`;
-        viewportElement.style.width = `${width}px`;
-    }
-}
-
-// Function to stop resizing
-function stopResize() {
-    isResizing = false;
-}

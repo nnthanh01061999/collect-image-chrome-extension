@@ -15,7 +15,7 @@ const collectVideos = () => {
                 };
             } else {
                 return Array.from(
-                    link.getElementsByTagName<'source'>('source')
+                    link.getElementsByTagName<'source'>('source'),
                 ).map((source: any) => ({
                     src: source.getAttribute('src') ?? '',
                     type: source.getAttribute('type') ?? '',
@@ -27,7 +27,7 @@ const collectVideos = () => {
                 ...prev,
                 ...(Array.isArray(cur) ? cur : [cur]),
             ],
-            []
+            [],
         );
 };
 
@@ -195,7 +195,7 @@ export const viewVideoCarousel = () => {
         });
     }
 
-    showCurrentVideo(); // Show the initial current video
+    showCurrentVideo();
 };
 
 export const closeViewModal = () => {

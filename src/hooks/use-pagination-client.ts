@@ -1,4 +1,4 @@
-import { PaginationParams, usePagination } from '@/util';
+import { PaginationParams, usePagination } from '@/hooks';
 
 type TUsePaginationClientProps<T> = {
     pagination?: Omit<PaginationParams, 'total'>;
@@ -14,7 +14,7 @@ function usePaginationClient<T>(props: TUsePaginationClientProps<T>) {
         pagination: _pagination,
         data: data.slice(
             (_pagination.active - 1) * size,
-            _pagination.active * size
+            _pagination.active * size,
         ),
     };
 }

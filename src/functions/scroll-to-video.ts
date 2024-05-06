@@ -12,7 +12,7 @@ export const scrollIntoVideo = (src: string) => {
                 };
             } else {
                 return Array.from(
-                    link.getElementsByTagName<'source'>('source')
+                    link.getElementsByTagName<'source'>('source'),
                 ).map((source: any) => ({
                     src: source.getAttribute('src') ?? '',
                     type: source.getAttribute('type') ?? '',
@@ -25,7 +25,7 @@ export const scrollIntoVideo = (src: string) => {
                 ...prev,
                 ...(Array.isArray(cur) ? cur : [cur]),
             ],
-            []
+            [],
         )
         .forEach((video) => {
             if (video.src === src)

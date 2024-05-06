@@ -17,7 +17,7 @@ import {
     exportImageToExcel,
     sortData,
 } from '@/util';
-import usePaginationClient from '@/util/hooks/use-pagination-client';
+import usePaginationClient from '@/hooks/use-pagination-client';
 import {
     CheckCheck,
     Download,
@@ -40,6 +40,7 @@ export type TImageTabProps = {
     onClearMark?: () => void;
     unMarkImage?: (src: string) => void;
 };
+
 function ImageTab(props: TImageTabProps) {
     const {
         loading,
@@ -66,7 +67,7 @@ function ImageTab(props: TImageTabProps) {
         return images.filter(
             (image) =>
                 image.src.toLowerCase().includes(lowerCaseKeyword) ||
-                image.alt.toLowerCase().includes(lowerCaseKeyword)
+                image.alt.toLowerCase().includes(lowerCaseKeyword),
         );
     }, [images, keyword]);
 
@@ -149,21 +150,25 @@ function ImageTab(props: TImageTabProps) {
             {
                 onClick: handleChangeViewMode,
                 title: 'Change view mode',
+                code: 'change_view_mode',
                 icon: viewModeIcons[viewMode].icon,
             },
             {
                 onClick: handleChangePaginationMode,
                 title: 'Change pagination view',
+                code: 'change_pagination_view',
                 icon: paginationViewModeIcons[paginationMode].icon,
             },
             {
                 onClick: handleSort,
                 title: 'Sort images',
+                code: 'sort_images',
                 icon: sortIcons[sortMode].icon,
             },
             {
                 onClick: handleSelectAllImage,
                 title: 'Select all images',
+                code: 'select_all_images',
                 icon:
                     selectedImage.length < filteredImages.length ? (
                         <CheckCheck size={16} />
@@ -174,16 +179,19 @@ function ImageTab(props: TImageTabProps) {
             {
                 onClick: downloadAllImage(selectedImage, onDownloadError),
                 title: 'Download all selected images',
+                code: 'download_all_selected_images',
                 icon: <Download size={16} />,
             },
             {
                 onClick: downloadAllImagesAsZip(selectedImage, onDownloadError),
                 title: 'Download all selected images to zip file',
+                code: 'download_all_selected_images_to_zip_file',
                 icon: <FileArchive size={16} />,
             },
             {
                 onClick: exportImageToExcel(selectedImage),
                 title: 'Export all selected images to Excel file',
+                code: 'export_all_selected_images_to_excel_file',
                 icon: <Sheet size={16} />,
             },
         ],
@@ -198,7 +206,7 @@ function ImageTab(props: TImageTabProps) {
             selectedImage,
             sortMode,
             viewMode,
-        ]
+        ],
     );
 
     const onSearch = (e: string) => setKeyword(e);
@@ -236,7 +244,7 @@ function ImageTab(props: TImageTabProps) {
             selectedImage,
             unMarkImage,
             viewMode,
-        ]
+        ],
     );
 
     return (
@@ -283,9 +291,9 @@ function ImageTab(props: TImageTabProps) {
                             <ScanSearch size={16} />
                         </Button>
                     )}
-                    {actions.map((action, index) => (
+                    {actions.map((action) => (
                         <Button
-                            key={index}
+                            key={action.code}
                             size='icon'
                             variant='ghost'
                             onClick={action.onClick}
@@ -312,7 +320,7 @@ function ImageTab(props: TImageTabProps) {
                             viewMode === 'grid' && cols === 1 && 'grid-cols-1',
                             viewMode === 'grid' && cols === 2 && 'grid-cols-2',
                             viewMode === 'grid' && cols === 3 && 'grid-cols-3',
-                            viewMode === 'grid' && cols === 4 && 'grid-cols-4'
+                            viewMode === 'grid' && cols === 4 && 'grid-cols-4',
                         )}
                     >
                         {data.map((image) => renderItem(image))}
