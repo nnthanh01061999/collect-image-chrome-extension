@@ -1,4 +1,4 @@
-import { VIEW_MODAL } from '@/constants';
+import { VIEW_IMAGE } from '@/constants';
 import { Video } from '@/types';
 
 let currentVideoIndex = 0;
@@ -15,7 +15,7 @@ const collectVideos = () => {
                 };
             } else {
                 return Array.from(
-                    link.getElementsByTagName<'source'>('source'),
+                    link.getElementsByTagName<'source'>('source')
                 ).map((source: any) => ({
                     src: source.getAttribute('src') ?? '',
                     type: source.getAttribute('type') ?? '',
@@ -27,7 +27,7 @@ const collectVideos = () => {
                 ...prev,
                 ...(Array.isArray(cur) ? cur : [cur]),
             ],
-            [],
+            []
         );
 };
 
@@ -40,7 +40,7 @@ export const viewVideoCarousel = () => {
     }
 
     const modal = document.createElement('div');
-    modal.id = VIEW_MODAL;
+    modal.id = VIEW_IMAGE;
     modal.style.cssText = `
         position: fixed;
         top: 0;
@@ -199,7 +199,7 @@ export const viewVideoCarousel = () => {
 };
 
 export const closeViewModal = () => {
-    const modal = document.getElementById(VIEW_MODAL);
+    const modal = document.getElementById(VIEW_IMAGE);
     if (modal) {
         modal.remove();
     }

@@ -62,5 +62,5 @@ chrome.runtime.onMessage.addListener(
             data: message.data,
             callback: sendResponse,
         });
-    },
+    }
 );

@@ -16,6 +16,12 @@
     "background": {
         "service_worker": "./static/js/background.js"
     },
+    "web_accessible_resources": [
+        {
+            "resources": ["css/*"],
+            "matches": ["<all_urls>"]
+        }
+    ],
     "permissions": [
         "contextMenus",
         "activeTab",

@@ -11,7 +11,7 @@ import {
 import { ReactNode } from 'react';
 
 export const LOADING_MODAL = 'ex-loading-modal';
-export const VIEW_MODAL = 'ex-view-modal';
+export const VIEW_IMAGE = 'view-image';
 export const IMAGE_MINIMAP = 'image-minimap';
 
 export const WIDTHS = [150, 200, 300, 600];

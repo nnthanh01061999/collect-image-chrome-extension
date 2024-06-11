@@ -1,4 +1,5 @@
 const path = require('path');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     webpack: {
@@ -8,12 +9,11 @@ module.exports = {
         configure: (webpackConfig, { env, paths }) => {
             return {
                 ...webpackConfig,
-
                 entry: {
                     main: [
                         env === 'development' &&
                             require.resolve(
-                                'react-dev-utils/webpackHotDevClient',
+                                'react-dev-utils/webpackHotDevClient'
                             ),
                         paths.appIndexJs,
                     ].filter(Boolean),
@@ -30,5 +30,15 @@ module.exports = {
                 },
             };
         },
+        plugins: [
+            new CopyPlugin({
+                patterns: [
+                    {
+                        from: 'src/style',
+                        to: './css',
+                    },
+                ],
+            }),
+        ],
     },
 };

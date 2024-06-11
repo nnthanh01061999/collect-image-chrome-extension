@@ -1,4 +1,4 @@
-import { Video } from '@/types';
+import { Video, Image } from '@/types';
 
 export const getAllImageInPage = () => {
     return {
@@ -13,7 +13,7 @@ export const getAllImageInPage = () => {
                     height: height ? +height : 0,
                     top: link.getBoundingClientRect().top,
                 };
-            },
+            }
         ),
         videos: Array.from(document.getElementsByTagName<'video'>('video'))
             .filter((link) => !link.getAttribute('id')?.includes('preview'))
@@ -25,7 +25,7 @@ export const getAllImageInPage = () => {
                     };
                 } else {
                     return Array.from(
-                        link.getElementsByTagName<'source'>('source'),
+                        link.getElementsByTagName<'source'>('source')
                     ).map((source: any) => ({
                         src: source.getAttribute('src') ?? '',
                         type: source.getAttribute('type') ?? '',
@@ -37,7 +37,18 @@ export const getAllImageInPage = () => {
                     ...prev,
                     ...(Array.isArray(cur) ? cur : [cur]),
                 ],
-                [],
+                []
             ),
     };
+};
+
+export const getAllUniqueImageInPage = () => {
+    const data = getAllImageInPage();
+    const originalImages = data.images;
+    const images: Image[] = [
+        ...((new Map(
+            originalImages?.map((item) => [item['src'], item])
+        ).values() as any) || []),
+    ];
+    return images;
 };
