@@ -22,12 +22,14 @@ import {
     CheckCheck,
     Download,
     FileArchive,
+    Filter,
     ScanSearch,
     Sheet,
     Trash,
     X,
 } from 'lucide-react';
 import { useCallback, useMemo, useState } from 'react';
+import AdvancedFilter from '@/components/app/AdvancedFilter';
 
 export type TImageTabProps = {
     loading?: boolean;
@@ -60,16 +62,26 @@ function ImageTab(props: TImageTabProps) {
     const [viewMode, setViewMode] = useState<TView>('grid');
     const [paginationMode, setPaginationMode] = useState<TPagination>('none');
     const [keyword, setKeyword] = useState<string>('');
+    const [width, setWidth] = useState<number[]>();
+    const [height, setHeight] = useState<number[]>();
 
     const filteredImages = useMemo(() => {
-        if (!keyword) return images;
+        if (!keyword && !width && !height) return images;
         const lowerCaseKeyword = keyword.toLowerCase();
-        return images.filter(
-            (image) =>
-                image.src.toLowerCase().includes(lowerCaseKeyword) ||
-                image.alt.toLowerCase().includes(lowerCaseKeyword),
-        );
-    }, [images, keyword]);
+        return images.filter((image) => {
+            console.log(image);
+            return (
+                (image.src.toLowerCase().includes(lowerCaseKeyword) ||
+                    image.alt.toLowerCase().includes(lowerCaseKeyword)) &&
+                (width && image.width
+                    ? image.width >= width?.[0] && image.width <= width?.[1]
+                    : true) &&
+                (height && image.height
+                    ? image.height >= height?.[0] && image.height <= height?.[1]
+                    : true)
+            );
+        });
+    }, [height, images, keyword, width]);
 
     const { data, pagination } = usePaginationClient({
         data: sortedImage.length ? sortedImage : filteredImages,
@@ -206,7 +218,7 @@ function ImageTab(props: TImageTabProps) {
             selectedImage,
             sortMode,
             viewMode,
-        ],
+        ]
     );
 
     const onSearch = (e: string) => setKeyword(e);
@@ -244,14 +256,29 @@ function ImageTab(props: TImageTabProps) {
             selectedImage,
             unMarkImage,
             viewMode,
-        ],
+        ]
     );
 
     return (
         <div className='grid gap-2 relative'>
             {loading && <Loading />}
-            <div className='fixed top-3 right-4'>
+            <div className='fixed flex gap-2 top-3 right-4'>
                 <InputSearch value={keyword} onChange={onSearch} />
+                <AdvancedFilter
+                    width={width}
+                    height={height}
+                    setWidth={setWidth}
+                    setHeight={setHeight}
+                >
+                    <Button
+                        size='icon'
+                        variant='ghost'
+                        title='Advanced Filter'
+                        className='h-8'
+                    >
+                        <Filter size={16} />
+                    </Button>
+                </AdvancedFilter>
             </div>
             <div className='flex space-x-2 justify-between items-center'>
                 <div className='grid gap-2'>
@@ -320,7 +347,7 @@ function ImageTab(props: TImageTabProps) {
                             viewMode === 'grid' && cols === 1 && 'grid-cols-1',
                             viewMode === 'grid' && cols === 2 && 'grid-cols-2',
                             viewMode === 'grid' && cols === 3 && 'grid-cols-3',
-                            viewMode === 'grid' && cols === 4 && 'grid-cols-4',
+                            viewMode === 'grid' && cols === 4 && 'grid-cols-4'
                         )}
                     >
                         {data.map((image) => renderItem(image))}
