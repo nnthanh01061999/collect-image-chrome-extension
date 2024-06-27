@@ -1,11 +1,8 @@
-import { getId } from '@/functions/get-id';
-import ReactDOM from 'react-dom';
+import { baseCss } from '@/constants';
+import { getId } from '@/functions';
+import { createRoot } from 'react-dom/client';
 
-export const injectReact = (
-    id: string,
-    component: JSX.Element,
-    cssURL?: string
-) => {
+export const injectReact = (id: string, component: JSX.Element, css = true) => {
     // Create a div element to mount the React app
     const appId = getId(id);
     const appContainer =
@@ -18,14 +15,14 @@ export const injectReact = (
 
     const html = document.createElement('html');
 
-    if (cssURL) {
-        const cssId = getId(cssURL);
+    if (css) {
+        const cssId = getId(`${id}-css`);
         if (document.getElementById(cssId)) return;
         const link = document.createElement('link');
         link.id = cssId;
         link.rel = 'stylesheet';
         link.type = 'text/css';
-        link.href = chrome.runtime.getURL(cssURL);
+        link.href = chrome.runtime.getURL('css/main.css');
         link.media = 'all';
 
         const head = document.createElement('head');
@@ -36,8 +33,14 @@ export const injectReact = (
     const renderIn = document.createElement('body');
     html.appendChild(renderIn);
 
+    //insert this style for global css
+    const style = document.createElement('style');
+    style.textContent = baseCss;
+    shadowRoot.appendChild(style);
+
     shadowRoot.appendChild(html);
-    ReactDOM.render(component, renderIn);
+    const root = createRoot(renderIn);
+    root.render(component);
 };
 
 export const closeReact = (id: string) => {

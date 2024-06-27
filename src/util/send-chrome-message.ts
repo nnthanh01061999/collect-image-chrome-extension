@@ -1,12 +1,12 @@
 import { ChromeActionEnum, ChromeResponse } from '@/types';
 
-export const sendChromeMessage = ({
+export const sendChromeMessage = <T>({
     type,
     data,
     callback,
 }: {
     type: ChromeActionEnum;
-    data?: any;
+    data?: T;
     callback?: (tab: chrome.tabs.Tab[], response: ChromeResponse) => void;
 }) => {
     if (!chrome.tabs) return;
@@ -22,8 +22,8 @@ export const sendChromeMessage = ({
                     type,
                     data,
                 },
-                (res) => callback?.(tabs, res),
+                (res) => callback?.(tabs, res)
             );
-        },
+        }
     );
 };

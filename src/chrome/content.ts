@@ -56,7 +56,7 @@ const actions = {
 >;
 
 chrome.runtime.onMessage.addListener(
-    (message: ChromeMessage, _, sendResponse) => {
+    (message: ChromeMessage<any>, _, sendResponse) => {
         const callback = actions[message.type];
         callback({
             data: message.data,

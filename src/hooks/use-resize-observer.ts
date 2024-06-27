@@ -53,6 +53,7 @@ export function useResizeObserver<T extends HTMLElement = any>(
                 cancelAnimationFrame(frameID.current);
             }
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [ref.current]);
 
     return [ref, rect] as const;

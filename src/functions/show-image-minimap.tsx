@@ -25,9 +25,5 @@ export const getImagesWithPosition = (images: Image[], bodyHeight: number) => {
 export const showImageMinimap = () => {
     const data = getAllUniqueImageInPage();
     if (data.length === 0) return;
-    injectReact(
-        IMAGE_MINIMAP,
-        <Minimap data={data} />,
-        'css/image-minimap.css'
-    );
+    injectReact(IMAGE_MINIMAP, <Minimap data={data} />);
 };

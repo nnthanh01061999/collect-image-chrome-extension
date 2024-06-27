@@ -68,7 +68,7 @@ export function usePagination({
         const leftSiblingIndex = Math.max(activePage - siblings, boundaries);
         const rightSiblingIndex = Math.min(
             activePage + siblings,
-            _total - boundaries,
+            _total - boundaries
         );
 
         const shouldShowLeftDots = leftSiblingIndex > boundaries + 2;
@@ -100,6 +100,7 @@ export function usePagination({
             DOTS,
             ...range(_total - boundaries + 1, _total),
         ];
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [_total, siblings, activePage]);
 
     return {

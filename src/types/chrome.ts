@@ -14,9 +14,9 @@ export enum ChromeActionEnum {
     'CTX_SHOW_IMAGE_MINIMAP' = 'CTX_SHOW_IMAGE_MINIMAP',
 }
 
-export type ChromeMessage = {
+export type ChromeMessage<T> = {
     type: ChromeActionEnum;
-    data: any;
+    data: T;
 };
 
 export type ChromeResponse = {

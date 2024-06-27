@@ -4,5 +4,5 @@ import { injectReact } from '@/functions/inject-react';
 
 export const viewImage = (src: string) => {
     if (!src) return;
-    injectReact(VIEW_IMAGE, <ViewImage src={src} />, 'css/view-image.css');
+    injectReact(VIEW_IMAGE, <ViewImage src={src} />);
 };

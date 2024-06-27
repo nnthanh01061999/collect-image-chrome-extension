@@ -7,3 +7,6 @@ export * from './scroll-to-video';
 export * from './show-image-minimap';
 export * from './show-video';
 export * from './view-image';
+export * from './get-id';
+export * from './debounce';
+export * from './inject-react';

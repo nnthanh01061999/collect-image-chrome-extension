@@ -1,7 +1,7 @@
+import { Button } from '@/components/ui/button';
 import { IMAGE_MINIMAP } from '@/constants';
 import { getImagesWithPosition, scrollIntoImage, viewImage } from '@/functions';
 import { debounce } from '@/functions/debounce';
-import { getId } from '@/functions/get-id';
 import { closeReact } from '@/functions/inject-react';
 import { useResize } from '@/hooks';
 import { Image } from '@/types';
@@ -16,8 +16,6 @@ import {
 type TMinimapProps = {
     data: Image[];
 };
-
-const id = getId(IMAGE_MINIMAP);
 
 function Minimap(props: TMinimapProps) {
     const { data = [] } = props;
@@ -63,22 +61,22 @@ function Minimap(props: TMinimapProps) {
 
     return (
         <div
-            id={id}
             ref={ref}
             style={{
                 width: size.width,
             }}
+            className='fixed top-0 right-0 min-w-34 w-auto h-full bg-black/50 z-[999999] flex justify-center items-center cursor-col-resize'
         >
-            <div className='content'>
+            <div className='grid relative w-full h-full gap-0.5'>
                 {dataWithPosition?.map((group, index) => (
                     <div
                         key={index}
-                        className='group-image'
+                        className='grid grid-cols-[repeat(auto-fill,minmax(min(25%,64px),1fr))] absolute right-0 items-start z-[2] h-[10%] overflow-auto w-full py-0.5'
                         style={{ top: `${index * 10}%` }}
                     >
                         {group?.map((item) => (
                             <img
-                                className='image'
+                                className='object-contain w-full h-auto cursor-pointer'
                                 key={item.src}
                                 src={item.src}
                                 alt={item.alt}
@@ -89,14 +87,14 @@ function Minimap(props: TMinimapProps) {
                     </div>
                 ))}
             </div>
-            <button
-                className='close-button'
+            <Button
+                className='absolute w-5 h-5 rounded-r-none top-0 right-full text-[8px]'
                 onClick={() => closeReact(IMAGE_MINIMAP)}
             >
                 X
-            </button>
+            </Button>
             <div
-                className='viewport'
+                className='fixed bg-black/30 min-w-34 right-0 z-[1] p-1'
                 style={{
                     width: size.width,
                     height: `${

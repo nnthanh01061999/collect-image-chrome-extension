@@ -2,7 +2,7 @@ import ExifrPopover from '@/components/app/ExifrPopover';
 import SocialSharePopover from '@/components/app/SocialSharePopover';
 import Show from '@/components/condition/Show';
 import { Button } from '@/components/ui/button';
-import { markImage } from '@/functions/mark-image';
+import { markImage } from '@/functions';
 import { cn } from '@/lib/utils';
 import { ChromeActionEnum, Image } from '@/types';
 import { downLoadImage, sendChromeMessage } from '@/util';
