@@ -1,0 +1,37 @@
+{
+    "name": "Image Toolkit",
+    "description": "This extension helps you interact in the current page.",
+    "version": "1.0",
+    "manifest_version": 3,
+    "action": {
+        "default_popup": "index.html",
+        "default_title": "Image toolkit"
+    },
+    "content_scripts": [
+        {
+            "matches": ["http://*/*", "https://*/*"],
+            "js": ["./static/js/content.js"]
+        }
+    ],
+    "background": {
+        "service_worker": "./static/js/background.js"
+    },
+    "web_accessible_resources": [
+        {
+            "resources": ["css/*"],
+            "matches": ["<all_urls>"]
+        }
+    ],
+    "permissions": [
+        "contextMenus",
+        "activeTab",
+        "tabs",
+        "storage",
+        "unlimitedStorage"
+    ],
+    "icons": {
+        "16": "logo192.png",
+        "48": "logo192.png",
+        "128": "logo192.png"
+    }
+}
