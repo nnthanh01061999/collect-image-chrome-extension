@@ -1,7 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { IMAGE_VIEWER } from '@/constants';
-import { scrollIntoImage, viewImage } from '@/functions';
-import { closeReact } from '@/functions';
+import { closeReact, scrollIntoImage, viewImage } from '@/functions';
 import { Image } from '@/types';
 import { useCallback, useEffect } from 'react';
 
@@ -26,8 +25,8 @@ function ImageViewer(props: TImageViewerProps) {
     }, [handleKeyDown]);
 
     return (
-        <div className='fixed top-0 right-0 min-w-[50%] w-auto h-full bg-black/50 z-[999999] flex justify-center items-center cursor-col-resize'>
-            <div className='grid grid-cols-1 w-full h-full gap-0.5'>
+        <div className='fixed top-0 right-0 w-[50%] h-full bg-black/50 z-[999999] flex justify-center items-center cursor-col-resize'>
+            <div className='grid grid-cols-1 overflow-auto w-full h-full gap-0.5'>
                 {data?.map((item) => (
                     <img
                         className='object-contain w-full h-auto cursor-pointer'

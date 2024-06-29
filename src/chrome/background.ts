@@ -38,7 +38,7 @@ chrome.runtime.onInstalled.addListener(() => {
     });
     chrome.contextMenus.create({
         id: ChromeActionEnum.CTX_SHOW_IMAGE_VIEWER,
-        title: 'Show list of image',
+        title: 'Show image viewer',
         contexts: ['all'],
     });
 });
