@@ -12,6 +12,7 @@ export enum ChromeActionEnum {
     'CTX_JUST_SHOW_VIDEO' = 'CTX_JUST_SHOW_VIDEO',
     'CTX_JUST_SHOW_IMAGE' = 'CTX_JUST_SHOW_IMAGE',
     'CTX_SHOW_IMAGE_MINIMAP' = 'CTX_SHOW_IMAGE_MINIMAP',
+    'CTX_SHOW_IMAGE_VIEWER' = 'CTX_SHOW_IMAGE_VIEWER',
 }
 
 export type ChromeMessage<T> = {

@@ -36,6 +36,11 @@ chrome.runtime.onInstalled.addListener(() => {
         title: 'Show minimap of image',
         contexts: ['all'],
     });
+    chrome.contextMenus.create({
+        id: ChromeActionEnum.CTX_SHOW_IMAGE_VIEWER,
+        title: 'Show list of image',
+        contexts: ['all'],
+    });
 });
 
 chrome.contextMenus.onClicked.addListener((info, tab) => {
