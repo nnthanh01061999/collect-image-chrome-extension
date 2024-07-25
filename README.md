@@ -1,70 +1,37 @@
-# Chrome Extension: Image Viewer
+# Chrome Extension: Image Toolkit
 
 ## Description
 
-The Chrome Extension "Image Viewer" is a tool built using React that enhances your browsing experience by providing various image-related features directly within your Chrome browser. This extension allows users to interact with images on web pages more conveniently and efficiently.
+"Image Toolkit" is a Chrome extension built with React that enhances your browsing experience by providing various image-related features directly within your browser. It allows users to interact with images on web pages more conveniently and efficiently.
 
-![alt text](https://github.com/nnthanh01061999/collect-image-chrome-extension/blob/main/app-image-2.png?raw=true)
+![Image Toolkit](https://github.com/nnthanh01061999/collect-image-chrome-extension/blob/main/app-image-2.png?raw=true)
 
 ## Features
 
-### Collect Image
+-   **Collect Image**: Fetches and displays the current image on the active page in the extension's popup.
+-   **Download Multiple Images**: Allows downloading multiple images simultaneously.
+-   **Download Multiple Images as Zip**: Downloads multiple images as a compressed zip file.
+-   **Export Images to Excel**: Exports multiple images to an Excel file.
+-   **Filter Images by Keyword**: Filters images by keywords in the image source URLs or alt attributes.
+-   **Sort Images**: Sorts images based on different criteria.
+-   **View Image Full Screen**: Views an image in full screen within the current page.
+-   **Scroll to Image**: Scrolls the page to focus on a specific image.
+-   **Open Image in New Tab**: Opens the selected image in a new browser tab.
+-   **View Modes**: Grid and List view modes for displaying images.
+-   **Customizable Grid View Mode**: Adjusts the number of columns in the grid view.
+-   **Collect Image for Infinite Page Loading**: Collects and displays unique images from infinite scrolling pages.
+-   **Share to Social Media**: Shares images directly to social media platforms.
+-   **View EXIF Info**: Provides detailed EXIF information for images.
 
--   Fetches the currently displayed image on the active page and displays it in the extension's popup HTML.
+### Context Menu Options
 
-### Download Multiple Images
-
--   Allows users to download multiple images at once.
-
-### Download Multiple Images as Zip
-
--   Enables users to download multiple images as a compressed zip file for easier sharing and storage.
-
-### Export Images to Excel
-
--   Enables users to export multiple images to excel file.
-
-### Filter Images by Keyword
-
--   Enables users to filter images by keyword, searching through image source URLs or alt attributes to quickly find relevant images.
-
-### Sort Images
-
--   Enables users to sort images based on different criteria.
-
-### View Image Full Screen
-
--   Provides the ability to view an image full screen within the current page.
-
-### Scroll to Image
-
--   Scrolls the page to focus on a specific image.
-
-### Open Image in New Tab
-
--   Opens the selected image in a new browser tab.
-
-### View Modes
-
--   Offers two view modes:
-    -   Grid: Displays images in a grid layout.
-    -   List: Displays images in a list layout.
-
-### Customizable Grid View Mode
-
--   Users can adjust the number of columns in the grid view for optimal viewing experience.
-
-### Collect Image for Infinite Page Loading
-
--   Automatically scrolls to the bottom of pages with infinite scroll to collect and display unique images in the extension's popup HTML.
-
-### Share to Social Media
-
--   Allows users to share images directly to social media platforms like Twitter, Facebook, or Instagram.
-
-### View EXIFR Info
-
--   Provides detailed EXIFR information for images, including camera settings, location, and creation date.
+-   **View Image**: Views the image.
+-   **Show Video**: Shows a video.
+-   **Mark Image**: Marks the image.
+-   **Just Show Video**: Only shows the video.
+-   **Just Show Image**: Only shows the image.
+-   **Show Minimap of Image**: Shows a minimap of the image.
+-   **Show Image Viewer**: Opens the image viewer.
 
 ## Installation
 
@@ -87,10 +54,10 @@ To install the Image Viewer Chrome Extension:
 Contributions to the Image Viewer Chrome Extension are welcome! If you'd like to contribute, please follow these steps:
 
 1. Fork the repository.
-2. Create a new branch for your feature (`git checkout -b feature/new-feature`).
+2. Create a new branch for your feature (`git checkout -b [feat|fix|chore]/[your-branch]`).
 3. Make your changes and ensure tests pass.
-4. Commit your changes (`git commit -m 'Add new feature'`).
-5. Push to the branch (`git push origin feature/new-feature`).
+4. Commit your changes (`git commit -m '[feat|fix|chore]: your commit'`).
+5. Push to the branch (`git push origin [your-branch]`).
 6. Create a new Pull Request.
 
 ## License
