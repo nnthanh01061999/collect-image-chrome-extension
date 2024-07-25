@@ -41,6 +41,11 @@ chrome.runtime.onInstalled.addListener(() => {
         title: 'Show image viewer',
         contexts: ['all'],
     });
+    chrome.contextMenus.create({
+        id: ChromeActionEnum.CTX_SHOW_CAROUSEL_VIEW,
+        title: 'Show carousel viewer',
+        contexts: ['all'],
+    });
 });
 
 chrome.contextMenus.onClicked.addListener((info, tab) => {

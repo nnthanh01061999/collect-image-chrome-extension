@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button';
 import { VIEW_IMAGE } from '@/constants';
 import { closeReact } from '@/functions/inject-react';
 import { useCallback, useEffect } from 'react';
@@ -28,17 +29,17 @@ function ViewImage(props: TViewImageProps) {
             onClick={() => closeReact(VIEW_IMAGE)}
         >
             <img
-                className='contain h-auto max-h-screen w-auto cursor-pointer'
+                className='object-left-topcontain h-auto max-h-screen w-auto cursor-pointer'
                 src={src}
                 alt={src}
                 onClick={(e) => e.stopPropagation()}
             />
-            <button
+            <Button
                 className='absolute right-4 top-4'
                 onClick={() => closeReact(VIEW_IMAGE)}
             >
                 Close
-            </button>
+            </Button>
         </div>
     );
 }

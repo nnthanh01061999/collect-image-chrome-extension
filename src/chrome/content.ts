@@ -10,6 +10,7 @@ import {
     viewImage,
     viewVideoCarousel,
 } from '@/functions';
+import { showCarouselView } from '@/functions/carousel-view';
 import { showImageViewer } from '@/functions/image-viewer';
 
 import { ChromeActionEnum, ChromeMessage } from '@/types';
@@ -53,6 +54,9 @@ const actions = {
     },
     CTX_SHOW_IMAGE_VIEWER: () => {
         showImageViewer();
+    },
+    CTX_SHOW_CAROUSEL_VIEW: () => {
+        showCarouselView();
     },
 } satisfies Record<
     ChromeActionEnum,
