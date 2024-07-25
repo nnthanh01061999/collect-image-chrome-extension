@@ -20,7 +20,7 @@ function VideoItem(props: Props) {
 
     return (
         <div className={cn(['flex', 'bg-white'])}>
-            <div className='px-2 w-full grid-cols-[548px,36px] grid items-center'>
+            <div className='grid w-full grid-cols-[548px,36px] items-center px-2'>
                 <p id={data.src} className='whitespace-break-spaces break-all'>
                     {data.src}
                 </p>

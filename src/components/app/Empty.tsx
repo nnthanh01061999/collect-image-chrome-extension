@@ -1,6 +1,6 @@
 function Empty() {
     return (
-        <div className='w-full h-full flex justify-center items-center p-4'>
+        <div className='flex h-full w-full items-center justify-center p-4'>
             <p>There is nothing here!</p>
         </div>
     );

@@ -35,7 +35,7 @@ const InputSearch = forwardRef<HTMLInputElement, InputSearchProps>(
         };
 
         return (
-            <div className='relative group'>
+            <div className='group relative'>
                 <input
                     type={type}
                     className={cn(
@@ -51,14 +51,14 @@ const InputSearch = forwardRef<HTMLInputElement, InputSearchProps>(
                 {currentValue && (
                     <div
                         onClick={onClear}
-                        className='group-hover:flex justify-center bg-background items-center hidden absolute right-6 top-1/2 -translate-y-1/2 w-3 h-3 rounded-full cursor-pointer'
+                        className='absolute right-6 top-1/2 hidden h-3 w-3 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-background group-hover:flex'
                     >
-                        <X className='w-3 h-3' />
+                        <X className='h-3 w-3' />
                     </div>
                 )}
                 <Search
                     onClick={onSearch}
-                    className='w-4 h-4 absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer'
+                    className='absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 cursor-pointer'
                 />
             </div>
         );

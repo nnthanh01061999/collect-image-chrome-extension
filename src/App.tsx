@@ -24,7 +24,7 @@ function App() {
                   ])
                 : setSelectedImage([...selectedImage, item]);
         },
-        [selectedImage]
+        [selectedImage],
     );
 
     const onDownloadError = (src: string) => {
@@ -32,8 +32,8 @@ function App() {
             prevImage.map((item) =>
                 item.src === src
                     ? { ...item, error: 'Error download images!' }
-                    : item
-            )
+                    : item,
+            ),
         );
     };
 
@@ -62,7 +62,7 @@ function App() {
 
                 images = [
                     ...((new Map(
-                        images?.map((item) => [item['src'], item])
+                        images?.map((item) => [item['src'], item]),
                     ).values() as any) || []),
                 ];
 
@@ -89,7 +89,7 @@ function App() {
 
                 images = [
                     ...((new Map(
-                        images?.map((item) => [item['src'], item])
+                        images?.map((item) => [item['src'], item]),
                     ).values() as any) || []),
                 ];
 
@@ -154,11 +154,11 @@ function App() {
             onSelect,
             selectedImage,
             videos,
-        ]
+        ],
     );
 
     return (
-        <div className='p-2 w-[632px] h-[584px]'>
+        <div className='h-[584px] w-[632px] p-2'>
             <Tabs defaultValue='image' className='w-full'>
                 <TabsList>
                     {tabs.map((tab) => (

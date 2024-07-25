@@ -15,7 +15,7 @@ const collectVideos = () => {
                 };
             } else {
                 return Array.from(
-                    link.getElementsByTagName<'source'>('source')
+                    link.getElementsByTagName<'source'>('source'),
                 ).map((source: any) => ({
                     src: source.getAttribute('src') ?? '',
                     type: source.getAttribute('type') ?? '',
@@ -27,7 +27,7 @@ const collectVideos = () => {
                 ...prev,
                 ...(Array.isArray(cur) ? cur : [cur]),
             ],
-            []
+            [],
         );
 };
 

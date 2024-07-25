@@ -68,7 +68,7 @@ function AdvancedFilter({
     return (
         <Popover>
             <PopoverTrigger asChild>{children}</PopoverTrigger>
-            <PopoverContent className='w-[320px] h-auto' alignOffset={-2}>
+            <PopoverContent className='h-auto w-[320px]' alignOffset={-2}>
                 <Form {...form}>
                     <form
                         className='grid gap-2'

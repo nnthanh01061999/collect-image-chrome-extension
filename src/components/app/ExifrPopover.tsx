@@ -22,7 +22,7 @@ function ExifrPopover({
                 {children}
             </PopoverTrigger>
             <PopoverContent align='start' side='bottom' avoidCollisions={false}>
-                <div className='grid max-w-60 w-fit'>
+                <div className='grid w-fit max-w-60'>
                     <ExifrInfo url={url} enabled={open} />
                 </div>
             </PopoverContent>

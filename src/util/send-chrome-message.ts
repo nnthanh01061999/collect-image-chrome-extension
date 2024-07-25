@@ -22,8 +22,8 @@ export const sendChromeMessage = <T>({
                     type,
                     data,
                 },
-                (res) => callback?.(tabs, res)
+                (res) => callback?.(tabs, res),
             );
-        }
+        },
     );
 };

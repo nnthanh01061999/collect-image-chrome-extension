@@ -218,7 +218,7 @@ function ImageTab(props: TImageTabProps) {
             selectedImage,
             sortMode,
             viewMode,
-        ]
+        ],
     );
 
     const onSearch = (e: string) => setKeyword(e);
@@ -256,13 +256,13 @@ function ImageTab(props: TImageTabProps) {
             selectedImage,
             unMarkImage,
             viewMode,
-        ]
+        ],
     );
 
     return (
-        <div className='grid gap-2 relative'>
+        <div className='relative grid gap-2'>
             {loading && <Loading />}
-            <div className='fixed flex gap-2 top-3 right-4'>
+            <div className='fixed right-4 top-3 flex gap-2'>
                 <InputSearch value={keyword} onChange={onSearch} />
                 <AdvancedFilter
                     width={width}
@@ -280,14 +280,14 @@ function ImageTab(props: TImageTabProps) {
                     </Button>
                 </AdvancedFilter>
             </div>
-            <div className='flex space-x-2 justify-between items-center'>
+            <div className='flex items-center justify-between space-x-2'>
                 <div className='grid gap-2'>
                     <Information
                         total={images.length}
                         selected={selectedImage.length}
                     />
                 </div>
-                <div className='grid gap-1 grid-flow-col'>
+                <div className='grid grid-flow-col gap-1'>
                     {viewMode === 'grid' && (
                         <Slider
                             value={[cols]}
@@ -342,12 +342,12 @@ function ImageTab(props: TImageTabProps) {
                 {data.length ? (
                     <div
                         className={cn(
-                            'grid ',
+                            'grid',
                             viewMode === 'grid' ? 'gap-4' : 'gap-2',
                             viewMode === 'grid' && cols === 1 && 'grid-cols-1',
                             viewMode === 'grid' && cols === 2 && 'grid-cols-2',
                             viewMode === 'grid' && cols === 3 && 'grid-cols-3',
-                            viewMode === 'grid' && cols === 4 && 'grid-cols-4'
+                            viewMode === 'grid' && cols === 4 && 'grid-cols-4',
                         )}
                     >
                         {data.map((image) => renderItem(image))}
@@ -357,7 +357,7 @@ function ImageTab(props: TImageTabProps) {
                 )}
             </ScrollArea>
             {paginationMode === 'pagination' && (
-                <div className='fixed bottom-2 inset-x-0'>
+                <div className='fixed inset-x-0 bottom-2'>
                     <BasePagination pagination={pagination} />
                 </div>
             )}

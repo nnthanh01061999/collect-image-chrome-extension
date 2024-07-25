@@ -68,7 +68,7 @@ export function usePagination({
         const leftSiblingIndex = Math.max(activePage - siblings, boundaries);
         const rightSiblingIndex = Math.min(
             activePage + siblings,
-            _total - boundaries
+            _total - boundaries,
         );
 
         const shouldShowLeftDots = leftSiblingIndex > boundaries + 2;

@@ -53,21 +53,21 @@ function ImageItem(props: Props) {
     return (
         <div
             className={cn([
-                'flex space-y-1 cursor-pointer',
+                'flex cursor-pointer space-y-1',
                 selected ? 'bg-accent' : 'bg-white',
             ])}
             onClick={onSelect}
         >
             <div
                 className={cn([
-                    'p-2 w-full grid items-start',
+                    'grid w-full items-start p-2',
                     'grid-cols-[476px,108px]',
                 ])}
             >
                 <div className='grid gap-1'>
                     <p
                         id={data.src}
-                        className='whitespace-break-spaces cursor-pointer break-all'
+                        className='cursor-pointer whitespace-break-spaces break-all'
                     >
                         {data.src}
                     </p>

@@ -24,17 +24,17 @@ function ViewImage(props: TViewImageProps) {
 
     return (
         <div
-            className='fixed inset-0 bg-black/50 z-[99999999] flex justify-center items-center'
+            className='fixed inset-0 z-[99999999] flex items-center justify-center bg-black/50'
             onClick={() => closeReact(VIEW_IMAGE)}
         >
             <img
-                className='contain w-auto h-auto cursor-pointer max-h-screen'
+                className='contain h-auto max-h-screen w-auto cursor-pointer'
                 src={src}
                 alt={src}
                 onClick={(e) => e.stopPropagation()}
             />
             <button
-                className='absolute top-4 right-4'
+                className='absolute right-4 top-4'
                 onClick={() => closeReact(VIEW_IMAGE)}
             >
                 Close

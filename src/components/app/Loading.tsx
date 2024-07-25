@@ -1,8 +1,8 @@
 function Loading() {
     return (
-        <div className='inset-0 absolute flex justify-center items-center z-20'>
-            <div className='inset-0 absolute bg-white opacity-50 z-10' />
-            <div className='bg-accent p-4 flex justify-center items-center rounded-sm z-30'>
+        <div className='absolute inset-0 z-20 flex items-center justify-center'>
+            <div className='absolute inset-0 z-10 bg-white opacity-50' />
+            <div className='z-30 flex items-center justify-center rounded-sm bg-accent p-4'>
                 <p className='text-black'>Collecting!</p>
             </div>
         </div>

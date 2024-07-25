@@ -46,7 +46,7 @@ function Badge({
         <div
             className={cn(
                 badgeVariants({ variant }),
-                onClose ? 'pe-8 relative whitespace-nowrap' : '',
+                onClose ? 'relative whitespace-nowrap pe-8' : '',
                 className,
             )}
             {...props}
@@ -56,7 +56,7 @@ function Badge({
                 <X
                     onClick={_onClose}
                     className={cn([
-                        'w-4 h-4 absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer',
+                        'absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 cursor-pointer',
                     ])}
                 />
             ) : null}

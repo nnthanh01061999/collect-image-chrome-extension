@@ -20,5 +20,5 @@
             "@/*": ["*"]
         }
     },
-    "include": ["src", "webpack.config.js"]
+    "include": ["src", "webpack.config.js", "mock-extension-apis.js"]
 }

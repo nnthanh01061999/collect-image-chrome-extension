@@ -71,7 +71,7 @@ function ImageCard(props: Props) {
     return (
         <div
             className={cn([
-                'relative h-full group p-3 rounded-md border overflow-hidden cursor-pointer border-input min-h-20',
+                'group relative h-full min-h-20 cursor-pointer overflow-hidden rounded-md border border-input p-3',
                 selected ? 'shadow-sm' : '',
                 selected ? 'bg-accent' : 'bg-white',
                 data.error ? 'opacity-70' : 'opacity-100',
@@ -85,7 +85,7 @@ function ImageCard(props: Props) {
                 ])}
             >
                 <img
-                    className='object-contain w-full h-full'
+                    className='h-full w-full object-contain'
                     src={imageSrc}
                     alt={data.alt}
                     onError={onLoadError}
@@ -93,7 +93,7 @@ function ImageCard(props: Props) {
             </div>
             <div
                 className={cn([
-                    'absolute grid inset-x-0 -bottom-full group-hover:bottom-0 shadow-sm p-0.5 transition-all w-full gap-1  border-t-1',
+                    'border-t-1 absolute inset-x-0 -bottom-full grid w-full gap-1 p-0.5 shadow-sm transition-all group-hover:bottom-0',
                     selected ? 'bg-accent' : 'bg-white',
                     mark
                         ? cols < 3
@@ -161,17 +161,17 @@ function ImageCard(props: Props) {
                 )}
             </div>
             <Show when={selected}>
-                <span className='absolute right-0 top-0 bg-background rounded-bl-md p-1 border-input border'>
+                <span className='absolute right-0 top-0 rounded-bl-md border border-input bg-background p-1'>
                     <Check size={16} />
                 </span>
             </Show>
 
             <Show when={!!data.error || false}>
-                <span className='absolute inset-x-0 text-center top-1/2 -translate-y-1/2 p-1 opacity-80 bg-destructive text-white'>
+                <span className='absolute inset-x-0 top-1/2 -translate-y-1/2 bg-destructive p-1 text-center text-white opacity-80'>
                     {data.error}
                 </span>
             </Show>
-            <span className='absolute grid grid-flow-col gap-1 left-0 top-0 bg-background border-t-0 border-l-0 rounded-br-md p-1 border-input border'>
+            <span className='absolute left-0 top-0 grid grid-flow-col gap-1 rounded-br-md border border-l-0 border-t-0 border-input bg-background p-1'>
                 <ExifrPopover url={data.src}>
                     <Info size={16} />
                 </ExifrPopover>

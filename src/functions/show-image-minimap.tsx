@@ -18,7 +18,7 @@ export const getImagesWithPosition = (images: Image[], bodyHeight: number) => {
         },
         Array(10)
             .fill(1)
-            .map(() => [] as Image[])
+            .map(() => [] as Image[]),
     );
 };
 

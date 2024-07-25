@@ -11,7 +11,7 @@ module.exports = {
             const babelLoaderRule = webpackConfig.module.rules.find(
                 (rule) =>
                     rule.use &&
-                    rule.use.find((use) => use.loader === 'babel-loader')
+                    rule.use.find((use) => use.loader === 'babel-loader'),
             );
 
             if (babelLoaderRule) {
@@ -31,7 +31,7 @@ module.exports = {
                     main: [
                         env === 'development' &&
                             require.resolve(
-                                'react-dev-utils/webpackHotDevClient'
+                                'react-dev-utils/webpackHotDevClient',
                             ),
                         paths.appIndexJs,
                     ].filter(Boolean),
