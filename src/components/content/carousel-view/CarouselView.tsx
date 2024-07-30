@@ -6,6 +6,8 @@ import {
     CarouselItem,
     CarouselNext,
     CarouselPrevious,
+    CarouselThumb,
+    CarouselThumbGroup,
 } from '@/components/ui/carousel';
 import { CAROUSEL_VIEW } from '@/constants';
 import { closeReact } from '@/functions';
@@ -25,14 +27,12 @@ function CarouselView(props: TCarouselViewProps) {
 
     const [api, setApi] = useState<CarouselApi>();
     const [current, setCurrent] = useState(0);
-    const [count, setCount] = useState(0);
 
     useEffect(() => {
         if (!api) {
             return;
         }
 
-        setCount(api.scrollSnapList().length);
         setCurrent(api.selectedScrollSnap() + 1);
 
         api.on('select', () => {
@@ -61,18 +61,21 @@ function CarouselView(props: TCarouselViewProps) {
                 className,
             ])}
         >
-            <div className='fixed left-1/2 top-3 -translate-x-1/2 rounded-sm bg-primary py-2 text-center text-sm text-black'>
-                Slide {current} of {count}
+            <div className='fixed left-1/2 top-4 w-fit -translate-x-1/2 rounded-sm bg-primary p-2 text-center text-white'>
+                Slide {current} of {data.length}
             </div>
-            <Carousel setApi={setApi} className='max-w-[90vw]'>
+            <Carousel
+                setApi={setApi}
+                className='h-[calc(100vh-132px)] max-w-[90vw]'
+            >
                 <CarouselContent>
                     {data?.map((item) => (
                         <CarouselItem
                             key={item.src}
-                            className='flex basis-full items-center justify-center'
+                            className='flex max-h-[calc(100vh-132px)] basis-full items-center justify-center'
                         >
                             <img
-                                className='h-auto max-h-screen w-full cursor-pointer object-contain'
+                                className='h-auto max-h-full w-fit cursor-pointer object-contain'
                                 src={item.src}
                                 alt={item.alt}
                             />
@@ -81,6 +84,19 @@ function CarouselView(props: TCarouselViewProps) {
                 </CarouselContent>
                 <CarouselNext />
                 <CarouselPrevious />
+                <CarouselThumbGroup>
+                    {data?.map((item, index) => (
+                        <CarouselThumb key={index} index={index}>
+                            <img
+                                src={item.src}
+                                alt={item.alt}
+                                className={cn([
+                                    'h-auto max-h-full w-fit cursor-pointer object-contain',
+                                ])}
+                            />
+                        </CarouselThumb>
+                    ))}
+                </CarouselThumbGroup>
             </Carousel>
 
             <Button

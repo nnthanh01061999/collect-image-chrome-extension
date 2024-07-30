@@ -251,6 +251,80 @@ const CarouselNext = React.forwardRef<
 });
 CarouselNext.displayName = 'CarouselNext';
 
+const CarouselThumbGroup = ({
+    className,
+    children,
+    ...props
+}: React.HTMLProps<HTMLDivElement>) => {
+    const { api } = useCarousel();
+
+    const [thumbsRef, thumbsApi] = useEmblaCarousel({
+        containScroll: 'keepSnaps',
+        dragFree: true,
+    });
+
+    const onSelect = React.useCallback(() => {
+        if (!api || !thumbsApi) return;
+        thumbsApi.scrollTo(api.selectedScrollSnap());
+    }, [api, thumbsApi]);
+
+    React.useEffect(() => {
+        if (!api) return;
+        onSelect();
+
+        api.on('select', onSelect).on('reInit', onSelect);
+    }, [api, onSelect]);
+
+    return (
+        <CarouselContent
+            ref={thumbsRef}
+            className={cn(['group overflow-hidden', className])}
+            {...props}
+        >
+            <div className='flex'>{children}</div>
+        </CarouselContent>
+    );
+};
+
+const CarouselThumb = React.forwardRef<
+    HTMLButtonElement,
+    React.ComponentProps<typeof Button> & {
+        index: number;
+    }
+>(
+    (
+        {
+            className,
+            variant = 'outline',
+            size = 'icon',
+            index,
+            children,
+            ...props
+        },
+        ref,
+    ) => {
+        const { api } = useCarousel();
+
+        return (
+            <Button
+                ref={ref}
+                variant={variant}
+                size={size}
+                className={cn([
+                    'w-1/5 min-w-0 shrink-0 grow-0 basis-1/5 data-[active=true]:border-white',
+                    className,
+                ])}
+                data-active={api?.selectedScrollSnap() === index}
+                onClick={() => api?.scrollTo(index)}
+                {...props}
+            >
+                {children}
+            </Button>
+        );
+    },
+);
+CarouselThumb.displayName = 'CarouselThumb';
+
 export {
     type CarouselApi,
     Carousel,
@@ -258,4 +332,6 @@ export {
     CarouselItem,
     CarouselPrevious,
     CarouselNext,
+    CarouselThumb,
+    CarouselThumbGroup,
 };
