@@ -32,6 +32,7 @@
 -   **Just Show Image**: Only shows the image.
 -   **Show Minimap of Image**: Shows a minimap of the image.
 -   **Show Image Viewer**: Opens the image viewer.
+-   **Show Carousel Viewer**: Opens the carousel image viewer.
 
 ## Installation
 
