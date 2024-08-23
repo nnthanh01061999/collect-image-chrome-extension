@@ -6,8 +6,6 @@ import {
     CarouselItem,
     CarouselNext,
     CarouselPrevious,
-    CarouselThumb,
-    CarouselThumbGroup,
 } from '@/components/ui/carousel';
 import { CAROUSEL_VIEW } from '@/constants';
 import { closeReact } from '@/functions';
@@ -84,19 +82,6 @@ function CarouselView(props: TCarouselViewProps) {
                 </CarouselContent>
                 <CarouselNext />
                 <CarouselPrevious />
-                <CarouselThumbGroup>
-                    {data?.map((item, index) => (
-                        <CarouselThumb key={index} index={index}>
-                            <img
-                                src={item.src}
-                                alt={item.alt}
-                                className={cn([
-                                    'h-auto max-h-full w-fit cursor-pointer object-contain',
-                                ])}
-                            />
-                        </CarouselThumb>
-                    ))}
-                </CarouselThumbGroup>
             </Carousel>
 
             <Button
