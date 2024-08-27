@@ -66,4 +66,13 @@ module.exports = {
             }),
         ],
     },
+    jest: {
+        moduleNameMapper: {
+            '@/(.+)': '<rootDir>/src/$1',
+        },
+        configure: () => {
+            // Return your custom Jest config
+            return require(path.resolve(__dirname, 'jest.config.js'));
+        },
+    },
 };

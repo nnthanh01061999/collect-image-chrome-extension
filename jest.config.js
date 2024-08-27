@@ -1,22 +1,20 @@
 module.exports = {
-    preset: 'ts-jest',
     testEnvironment: 'jsdom',
-    moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+    setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
     moduleNameMapper: {
         '^@/(.*)$': '<rootDir>/src/$1',
     },
     transform: {
-        '^.+\\.(ts|tsx)$': 'ts-jest',
+        '^.+\\.(ts|tsx)$': [
+            'ts-jest',
+            {
+                tsconfig: 'tsconfig.json', // Your tsconfig file
+                diagnostics: true, // Set to false to disable type checking during tests
+            },
+        ],
         '^.+\\.(js|jsx)$': 'babel-jest',
     },
-    transformIgnorePatterns: ['/node_modules/'],
-    globals: {
-        'ts-jest': {
-            tsconfig: 'tsconfig.json',
-        },
-    },
-    setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
-    testMatch: ['<rootDir>/src/**/?(*.)+(spec|test).[jt]s?(x)'],
     collectCoverageFrom: ['src/**/*.{ts,tsx,js,jsx}', '!src/**/*.d.ts'],
+    testMatch: ['<rootDir>/src/**/?(*.)+(spec|test).[jt]s?(x)'],
     setupFiles: ['<rootDir>/mock-extension-apis.js'],
 };

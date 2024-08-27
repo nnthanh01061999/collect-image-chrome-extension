@@ -4,6 +4,9 @@ global.chrome = {
             throw new Error('Unimplemented.');
         },
     },
+    runtime: {
+        getURL: jest.fn((path) => path),
+    },
 };
 
 global.ResizeObserver = jest.fn().mockImplementation(() => ({
