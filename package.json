@@ -35,6 +35,7 @@
         "react": "19.0.0-rc-8971381549-20240625",
         "react-dom": "19.0.0-rc-8971381549-20240625",
         "react-hook-form": "^7.53.0",
+        "react-image-crop": "^11.0.7",
         "react-json-view": "^1.21.3",
         "react-scripts": "5.0.1",
         "size-plugin": "^3.0.0",

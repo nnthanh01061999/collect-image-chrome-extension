@@ -46,11 +46,35 @@ chrome.runtime.onInstalled.addListener(() => {
         title: 'Show carousel viewer',
         contexts: ['all'],
     });
+    chrome.contextMenus.create({
+        id: ChromeActionEnum.CTX_CORNER_IFRAME,
+        title: 'Corner iframe',
+        contexts: ['all'],
+    });
+    chrome.contextMenus.create({
+        id: ChromeActionEnum.CTX_SNAPSHOT,
+        title: 'Snapshot',
+        contexts: ['all'],
+    });
 });
 
 chrome.contextMenus.onClicked.addListener((info, tab) => {
-    if (!tab?.id) return;
-    chrome.tabs.sendMessage(tab.id, {
+    const id = tab?.id;
+    if (!id) return;
+    if (info.menuItemId === ChromeActionEnum.CTX_SNAPSHOT) {
+        chrome.tabs?.captureVisibleTab(
+            null as any,
+            { format: 'png' },
+            (dataUrl) => {
+                chrome.tabs.sendMessage(id, {
+                    type: info.menuItemId,
+                    data: dataUrl,
+                });
+            },
+        );
+        return;
+    }
+    chrome.tabs.sendMessage(id, {
         type: info.menuItemId,
         data: info.srcUrl,
     });

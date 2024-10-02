@@ -15,6 +15,8 @@ export const VIEW_IMAGE = 'view-image';
 export const IMAGE_MINIMAP = 'image-minimap';
 export const IMAGE_VIEWER = 'image-viewer';
 export const CAROUSEL_VIEW = 'carousel-view';
+export const CORNER_IFRAME = 'corner-iframe';
+export const SNAPSHOT_IMAGE = 'snapshot-image';
 
 export const WIDTHS = [150, 200, 300, 600];
 

@@ -9,9 +9,11 @@ import {
     showLoadingModal,
     viewImage,
     viewVideoCarousel,
+    showCarouselView,
+    showCornerIframe,
+    showImageViewer,
+    snapshotImage,
 } from '@/functions';
-import { showCarouselView } from '@/functions/carousel-view';
-import { showImageViewer } from '@/functions/image-viewer';
 
 import { ChromeActionEnum, ChromeMessage } from '@/types';
 
@@ -57,6 +59,12 @@ const actions = {
     },
     CTX_SHOW_CAROUSEL_VIEW: () => {
         showCarouselView();
+    },
+    CTX_CORNER_IFRAME: () => {
+        showCornerIframe();
+    },
+    CTX_SNAPSHOT: ({ data }) => {
+        snapshotImage(data);
     },
 } satisfies Record<
     ChromeActionEnum,
