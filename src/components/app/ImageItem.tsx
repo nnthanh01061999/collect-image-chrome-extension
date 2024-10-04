@@ -80,7 +80,7 @@ function ImageItem(props: Props) {
                     onClick={(e) => e.stopPropagation()}
                 >
                     <Button
-                        title='Download'
+                        title={chrome.i18n.getMessage('download.message')}
                         size='sm'
                         variant='ghost'
                         onClick={downLoadImage(data, onDownloadError)}
@@ -94,7 +94,9 @@ function ImageItem(props: Props) {
                     </SocialSharePopover>
                     {mark && (
                         <Button
-                            title='View image in new tab'
+                            title={chrome.i18n.getMessage(
+                                'view_image_in_new_tab.message',
+                            )}
                             size='sm'
                             variant='ghost'
                             onClick={handleOpenImage}
@@ -104,7 +106,7 @@ function ImageItem(props: Props) {
                     )}
                     {mark && (
                         <Button
-                            title='Scroll into image'
+                            title={chrome.i18n.getMessage('scroll_into_image')}
                             size='sm'
                             variant='ghost'
                             onClick={handleScrollInto}
@@ -114,7 +116,7 @@ function ImageItem(props: Props) {
                     )}
                     {mark ? (
                         <Button
-                            title='Mark'
+                            title={chrome.i18n.getMessage('mark.message')}
                             size='sm'
                             variant='ghost'
                             onClick={onMarkImage}
@@ -123,7 +125,7 @@ function ImageItem(props: Props) {
                         </Button>
                     ) : (
                         <Button
-                            title='UnMark'
+                            title={chrome.i18n.getMessage('unmark.message')}
                             size='sm'
                             variant='ghost'
                             onClick={onUnMarkImage}

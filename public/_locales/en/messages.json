@@ -1,0 +1,89 @@
+{
+    "error_download_images": {
+        "message": "Error download images"
+    },
+    "image": {
+        "message": "image"
+    },
+    "mark": {
+        "message": "Mark"
+    },
+    "video": {
+        "message": "Video"
+    },
+    "clear": {
+        "message": "Clear"
+    },
+    "apply": {
+        "message": "Apply"
+    },
+    "there_is_nothing_here": {
+        "message": "There is nothing here!"
+    },
+    "no_info": {
+        "message": "No info"
+    },
+    "download": {
+        "message": "Download"
+    },
+    "view_image": {
+        "message": "View image"
+    },
+    "view_image_in_new_tab": {
+        "message": "View image in new tab"
+    },
+    "scroll_to_image": {
+        "message": "Scroll to image"
+    },
+    "unmark": {
+        "message": "UnMark"
+    },
+    "scroll_into_image": {
+        "message": "Scroll into image"
+    },
+    "change_view_mode": {
+        "message": "Change view mode"
+    },
+    "change_pagination_view": {
+        "message": "Change pagination view"
+    },
+    "sort_images": {
+        "message": "Sort images"
+    },
+    "select_all_images": {
+        "message": "Select all images"
+    },
+    "download_all_selected_images": {
+        "message": "Download all selected images"
+    },
+    "download_all_selected_images_to_zip_file": {
+        "message": "Download all selected images to zip file"
+    },
+    "export_all_selected_images_to_excel_file": {
+        "message": "Export all selected images to Excel file"
+    },
+    "advanced_filter": {
+        "message": "Advanced Filter"
+    },
+    "clear_all_mark": {
+        "message": "Clear all mark"
+    },
+    "show_all_collected_images": {
+        "message": "Show all collected images"
+    },
+    "total": {
+        "message": "Total"
+    },
+    "selected": {
+        "message": "Selected"
+    },
+    "collecting": {
+        "message": "Collecting"
+    },
+    "close": {
+        "message": "Close"
+    },
+    "review": {
+        "message": "Review"
+    }
+}

@@ -115,10 +115,10 @@ function AdvancedFilter({
                         />
                         <div className='grid grid-cols-2 gap-2'>
                             <Button size='sm' type='button' onClick={onClear}>
-                                Clear
+                                {chrome.i18n.getMessage('clear')}
                             </Button>
                             <Button size='sm' type='submit'>
-                                Apply
+                                {chrome.i18n.getMessage('apply')}
                             </Button>
                         </div>
                     </form>

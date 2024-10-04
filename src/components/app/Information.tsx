@@ -6,8 +6,12 @@ function Information(props: TInformationProps) {
     const { total, selected } = props;
     return (
         <div className='grid grid-flow-col gap-2'>
-            <p>Total: {total}</p>
-            <p>Selected: {selected}</p>
+            <p>
+                {chrome.i18n.getMessage('total')}: {total}
+            </p>
+            <p>
+                {chrome.i18n.getMessage('selected')}: {selected}
+            </p>
         </div>
     );
 }

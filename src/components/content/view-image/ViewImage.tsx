@@ -38,7 +38,7 @@ function ViewImage(props: TViewImageProps) {
                 className='absolute right-4 top-4'
                 onClick={() => closeReact(VIEW_IMAGE)}
             >
-                Close
+                {chrome.i18n.getMessage('close.message')}
             </Button>
         </div>
     );

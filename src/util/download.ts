@@ -148,3 +148,24 @@ export const exportImageToExcel = (imageUrls: string[]) => () => {
         document.body.removeChild(link);
     });
 };
+
+export const saveBase64ToImage = (base64Data: string) => {
+    // Convert Base64 to binary
+    const byteCharacters = atob(base64Data);
+    const byteNumbers = new Uint8Array(byteCharacters.length);
+
+    for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+
+    // Create a Blob from the binary data
+    const blob = new Blob([byteNumbers], { type: 'image/png' });
+
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    const fileName = 'snapshot.png';
+    link.href = url;
+    link.setAttribute('download', fileName);
+    document.body.appendChild(link);
+    link.click();
+};

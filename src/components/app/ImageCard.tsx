@@ -104,7 +104,7 @@ function ImageCard(props: Props) {
                 onClick={(e) => e.stopPropagation()}
             >
                 <Button
-                    title='Download'
+                    title={chrome.i18n.getMessage('download')}
                     size='sm'
                     variant='ghost'
                     onClick={downLoadImage(data, onDownloadError)}
@@ -113,7 +113,7 @@ function ImageCard(props: Props) {
                 </Button>
                 {mark && (
                     <Button
-                        title='View image'
+                        title={chrome.i18n.getMessage('view_image')}
                         size='sm'
                         variant='ghost'
                         onClick={handleViewImage}
@@ -122,7 +122,7 @@ function ImageCard(props: Props) {
                     </Button>
                 )}
                 <Button
-                    title='View image in new tab'
+                    title={chrome.i18n.getMessage('view_image_in_new_tab')}
                     size='sm'
                     variant='ghost'
                     onClick={handleOpenImage}
@@ -131,7 +131,7 @@ function ImageCard(props: Props) {
                 </Button>
                 {mark && (
                     <Button
-                        title='Scroll to image'
+                        title={chrome.i18n.getMessage('scroll_to_image')}
                         size='sm'
                         variant='ghost'
                         onClick={handleScrollInto}
@@ -142,7 +142,7 @@ function ImageCard(props: Props) {
 
                 {mark ? (
                     <Button
-                        title='Mark'
+                        title={chrome.i18n.getMessage('mark.message')}
                         size='sm'
                         variant='ghost'
                         onClick={onMarkImage}
@@ -151,7 +151,7 @@ function ImageCard(props: Props) {
                     </Button>
                 ) : (
                     <Button
-                        title='UnMark'
+                        title={chrome.i18n.getMessage('unmark')}
                         size='sm'
                         variant='ghost'
                         onClick={onUnMarkImage}

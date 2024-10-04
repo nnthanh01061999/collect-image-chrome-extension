@@ -31,7 +31,12 @@ function App() {
         setImages((prevImage) =>
             prevImage.map((item) =>
                 item.src === src
-                    ? { ...item, error: 'Error download images!' }
+                    ? {
+                          ...item,
+                          error: chrome.i18n.getMessage(
+                              'error_download_images',
+                          ),
+                      }
                     : item,
             ),
         );
@@ -104,7 +109,7 @@ function App() {
         () => [
             {
                 value: 'image',
-                title: 'Image',
+                title: chrome.i18n.getMessage('image'),
                 content: (
                     <ImageTab
                         loading={collecting}
@@ -119,12 +124,12 @@ function App() {
             },
             {
                 value: 'mark',
-                title: 'Mark',
+                title: chrome.i18n.getMessage('mark'),
                 content: <MarkTab onDownloadError={onDownloadError} />,
             },
             {
                 value: 'video',
-                title: 'Video',
+                title: chrome.i18n.getMessage('video'),
                 content: (
                     <div className='grid gap-2'>
                         <ScrollArea className='max-h-[492px] pe-4'>

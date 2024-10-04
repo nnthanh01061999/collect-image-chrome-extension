@@ -26,7 +26,13 @@ function ExifrInfo({ children, ...props }: PropsWithChildren<TExifrInfoProps>) {
 
     return (
         <div className='grid max-w-65 overflow-auto'>
-            {loading ? 'Loading' : data ? <ReactJson src={data} /> : 'No info'}
+            {loading ? (
+                'Loading'
+            ) : data ? (
+                <ReactJson src={data} />
+            ) : (
+                chrome.i18n.getMessage('no_info')
+            )}
         </div>
     );
 }

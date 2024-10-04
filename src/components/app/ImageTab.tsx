@@ -161,25 +161,25 @@ function ImageTab(props: TImageTabProps) {
         () => [
             {
                 onClick: handleChangeViewMode,
-                title: 'Change view mode',
+                title: chrome.i18n.getMessage('change_view_mode'),
                 code: 'change_view_mode',
                 icon: viewModeIcons[viewMode].icon,
             },
             {
                 onClick: handleChangePaginationMode,
-                title: 'Change pagination view',
+                title: chrome.i18n.getMessage('change_pagination_view'),
                 code: 'change_pagination_view',
                 icon: paginationViewModeIcons[paginationMode].icon,
             },
             {
                 onClick: handleSort,
-                title: 'Sort images',
+                title: chrome.i18n.getMessage('sort_images'),
                 code: 'sort_images',
                 icon: sortIcons[sortMode].icon,
             },
             {
                 onClick: handleSelectAllImage,
-                title: 'Select all images',
+                title: chrome.i18n.getMessage('select_all_images'),
                 code: 'select_all_images',
                 icon:
                     selectedImage.length < filteredImages.length ? (
@@ -190,19 +190,23 @@ function ImageTab(props: TImageTabProps) {
             },
             {
                 onClick: downloadAllImage(selectedImage, onDownloadError),
-                title: 'Download all selected images',
+                title: chrome.i18n.getMessage('download_all_selected_images'),
                 code: 'download_all_selected_images',
                 icon: <Download size={16} />,
             },
             {
                 onClick: downloadAllImagesAsZip(selectedImage, onDownloadError),
-                title: 'Download all selected images to zip file',
+                title: chrome.i18n.getMessage(
+                    'download_all_selected_images_to_zip_file',
+                ),
                 code: 'download_all_selected_images_to_zip_file',
                 icon: <FileArchive size={16} />,
             },
             {
                 onClick: exportImageToExcel(selectedImage),
-                title: 'Export all selected images to Excel file',
+                title: chrome.i18n.getMessage(
+                    'export_all_selected_images_to_excel_file',
+                ),
                 code: 'export_all_selected_images_to_excel_file',
                 icon: <Sheet size={16} />,
             },
@@ -273,7 +277,7 @@ function ImageTab(props: TImageTabProps) {
                     <Button
                         size='icon'
                         variant='ghost'
-                        title='Advanced Filter'
+                        title={chrome.i18n.getMessage('advanced_filter')}
                         className='h-8'
                     >
                         <Filter size={16} />
@@ -302,7 +306,7 @@ function ImageTab(props: TImageTabProps) {
                             size='icon'
                             variant='ghost'
                             onClick={onClearMark}
-                            title='Clear all mark'
+                            title={chrome.i18n.getMessage('clear_all_mark')}
                         >
                             <Trash size={16} />
                         </Button>
@@ -313,7 +317,9 @@ function ImageTab(props: TImageTabProps) {
                             variant='ghost'
                             loading={loading}
                             onClick={handleShowAllImage}
-                            title='Show all collected images'
+                            title={chrome.i18n.getMessage(
+                                'show_all_collected_images',
+                            )}
                         >
                             <ScanSearch size={16} />
                         </Button>

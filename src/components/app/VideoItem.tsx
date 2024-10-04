@@ -25,7 +25,7 @@ function VideoItem(props: Props) {
                     {data.src}
                 </p>
                 <Button
-                    title='Scroll into image'
+                    title={chrome.i18n.getMessage('scroll_into_image.message')}
                     size='sm'
                     variant='ghost'
                     onClick={handleScrollInto}

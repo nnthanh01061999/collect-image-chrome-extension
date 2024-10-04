@@ -1,0 +1,71 @@
+{
+    "advanced_filter": {
+        "message": "Bộ lọc nâng cao"
+    },
+    "apply": {
+        "message": "Áp dụng"
+    },
+    "change_pagination_view": {
+        "message": "Thay đổi chế độ xem phân trang"
+    },
+    "change_view_mode": {
+        "message": "Thay đổi chế độ xem"
+    },
+    "clear": {
+        "message": "Thông thoáng"
+    },
+    "sort_images": {
+        "message": "Sắp xếp hình ảnh"
+    },
+    "show_all_collected_images": {
+        "message": "Hiển thị tất cả hình ảnh được thu thập"
+    },
+    "selected": {
+        "message": "Đã chọn"
+    },
+    "select_all_images": {
+        "message": "Chọn tất cả hình ảnh"
+    },
+    "scroll_to_image": {
+        "message": "Di chuyển đến hình ảnh"
+    },
+    "scroll_into_image": {
+        "message": "Cuộn vào hình ảnh"
+    },
+    "review": {
+        "message": "Ôn tập"
+    },
+    "no_info": {
+        "message": "Không có thông tin"
+    },
+    "mark": {
+        "message": "Đánh dấu"
+    },
+    "image": {
+        "message": "hình ảnh"
+    },
+    "export_all_selected_images_to_excel_file": {
+        "message": "Xuất tất cả hình ảnh đã chọn sang tệp Excel"
+    },
+    "error_download_images": {
+        "message": "Lỗi tải hình ảnh"
+    },
+    "download_all_selected_images_to_zip_file": {
+        "message": "Tải tất cả hình ảnh đã chọn xuống file zip"
+    },
+    "download_all_selected_images": {
+        "message": "Tải xuống tất cả các hình ảnh đã chọn"
+    },
+    "download": {
+        "message": "Tải xuống"
+    },
+    "collecting": {
+        "message": "thu thập"
+    },
+    "close": {
+        "message": "Đóng"
+    },
+    "clear_all_mark": {
+        "message": "Xóa tất cả dấu"
+    }
+}

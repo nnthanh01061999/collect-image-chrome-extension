@@ -128,7 +128,7 @@ function Minimap(props: TMinimapProps) {
                     className='absolute right-full top-5 h-5 w-5 rounded-r-none text-[8px]'
                     onClick={() => setOpenViewer((prev) => !prev)}
                 >
-                    Review
+                    {chrome.i18n.getMessage('review')}
                 </Button>
             )}
             {openViewer && (

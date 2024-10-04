@@ -88,7 +88,7 @@ function CarouselView(props: TCarouselViewProps) {
                 className='absolute right-4 top-4'
                 onClick={() => closeReact(CAROUSEL_VIEW)}
             >
-                Close
+                {chrome.i18n.getMessage('close')}
             </Button>
         </div>
     );

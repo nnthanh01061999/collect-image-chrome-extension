@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { SNAPSHOT_IMAGE } from '@/constants';
 import { cropImage } from '@/functions';
 import { closeReact } from '@/functions/inject-react';
+import { saveBase64ToImage } from '@/util';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import ReactCrop, { Crop } from 'react-image-crop';
 
@@ -19,26 +20,9 @@ function SnapShotImage(props: TSnapShotImageProps) {
         const image = cropImage(ref.current, crop);
         if (!image) return;
         const base64Data = image.split(',')[1];
-
-        // Convert Base64 to binary
-        const byteCharacters = atob(base64Data);
-        const byteNumbers = new Uint8Array(byteCharacters.length);
-
-        for (let i = 0; i < byteCharacters.length; i++) {
-            byteNumbers[i] = byteCharacters.charCodeAt(i);
-        }
-
-        // Create a Blob from the binary data
-        const blob = new Blob([byteNumbers], { type: 'image/png' });
-
-        const url = window.URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        const fileName = 'snapshot.png';
-        link.href = url;
-        link.setAttribute('download', fileName);
-        document.body.appendChild(link);
-        link.click();
+        saveBase64ToImage(base64Data);
         closeReact(SNAPSHOT_IMAGE);
+        document.body.style.overflow = 'auto';
     };
 
     const handleKeyDown = useCallback((event: KeyboardEvent) => {
@@ -53,6 +37,13 @@ function SnapShotImage(props: TSnapShotImageProps) {
             window.removeEventListener('keydown', handleKeyDown);
         };
     }, [handleKeyDown]);
+
+    useEffect(() => {
+        document.body.style.overflow = 'hidden';
+        return () => {
+            document.body.style.overflow = 'auto';
+        };
+    }, []);
 
     return (
         <div className='fixed inset-0 z-[99999999] flex items-center justify-center bg-black/50'>

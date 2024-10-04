@@ -1,0 +1,8 @@
+{
+    "i18n-ally.enabledFrameworks": ["chrome-ext"],
+    "i18n-ally.localesPaths": "public/_locales",
+    "i18n-ally.dirStructure": "dir",
+    "i18n-ally.displayLanguage": "en",
+    "i18n-ally.sourceLanguage": "en",
+    "i18n-ally.keystyle": "nested"
+}
