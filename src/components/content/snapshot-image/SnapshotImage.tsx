@@ -3,6 +3,7 @@ import { SNAPSHOT_IMAGE } from '@/constants';
 import { cropImage } from '@/functions';
 import { closeReact } from '@/functions/inject-react';
 import { saveBase64ToImage } from '@/util';
+import { SaveIcon, X } from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import ReactCrop, { Crop } from 'react-image-crop';
 
@@ -50,7 +51,23 @@ function SnapShotImage(props: TSnapShotImageProps) {
             <ReactCrop
                 crop={crop}
                 onChange={(c) => setCrop(c)}
-                onDragEnd={saveImage}
+                renderSelectionAddon={() =>
+                    crop ? (
+                        <div className='relative grid h-full w-full bg-transparent'>
+                            <div className='absolute left-[calc(100%+4px)] top-0 flex flex-col gap-2'>
+                                <Button
+                                    size='icon'
+                                    onClick={() => closeReact(SNAPSHOT_IMAGE)}
+                                >
+                                    <X size={16} />
+                                </Button>
+                                <Button size='icon' onClick={saveImage}>
+                                    <SaveIcon size={16} />
+                                </Button>
+                            </div>
+                        </div>
+                    ) : null
+                }
             >
                 <img
                     ref={ref}
@@ -60,12 +77,6 @@ function SnapShotImage(props: TSnapShotImageProps) {
                 />
             </ReactCrop>
 
-            <Button
-                className='absolute right-4 top-4'
-                onClick={() => closeReact(SNAPSHOT_IMAGE)}
-            >
-                Close
-            </Button>
             <link
                 href='https://unpkg.com/react-image-crop/dist/ReactCrop.css'
                 rel='stylesheet'
