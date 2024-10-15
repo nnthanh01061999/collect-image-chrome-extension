@@ -38,6 +38,26 @@ export const injectReact = (id: string, component: JSX.Element, css = true) => {
     style.textContent = baseCss;
     shadowRoot.appendChild(style);
 
+    // Create and inject the first preconnect link for fonts.googleapis.com
+    const preconnectGoogleFonts = document.createElement('link');
+    preconnectGoogleFonts.rel = 'preconnect';
+    preconnectGoogleFonts.href = 'https://fonts.googleapis.com';
+    shadowRoot.appendChild(preconnectGoogleFonts);
+
+    // Create and inject the second preconnect link for fonts.gstatic.com with crossorigin attribute
+    const preconnectGStatic = document.createElement('link');
+    preconnectGStatic.rel = 'preconnect';
+    preconnectGStatic.href = 'https://fonts.gstatic.com';
+    preconnectGStatic.crossOrigin = 'anonymous';
+    shadowRoot.appendChild(preconnectGStatic);
+
+    // Create and inject the stylesheet link for Silkscreen font
+    const fontLink = document.createElement('link');
+    fontLink.rel = 'stylesheet';
+    fontLink.href =
+        'https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap';
+    shadowRoot.appendChild(fontLink);
+
     shadowRoot.appendChild(html);
     const root = createRoot(renderIn);
     root.render(component);

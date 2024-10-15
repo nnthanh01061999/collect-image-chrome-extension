@@ -167,7 +167,11 @@ function App() {
             <Tabs defaultValue='image' className='w-full'>
                 <TabsList>
                     {tabs.map((tab) => (
-                        <TabsTrigger key={tab.value} value={tab.value}>
+                        <TabsTrigger
+                            key={tab.value}
+                            value={tab.value}
+                            className='font-silkscreen'
+                        >
                             {tab.title}
                         </TabsTrigger>
                     ))}

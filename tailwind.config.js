@@ -11,6 +11,11 @@ module.exports = {
     ],
     prefix: '',
     theme: {
+        fontFamily: {
+            silkscreen: [
+                'Silkscreen,FiraCode,Monaco,Consolas,UbuntuMono,monospace',
+            ],
+        },
         container: {
             center: true,
             padding: '2rem',

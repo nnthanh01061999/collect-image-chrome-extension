@@ -5,7 +5,7 @@ type TInformationProps = {
 function Information(props: TInformationProps) {
     const { total, selected } = props;
     return (
-        <div className='grid grid-flow-col gap-2'>
+        <div className='font-silkscreen grid grid-flow-col gap-2'>
             <p>
                 {chrome.i18n.getMessage('total')}: {total}
             </p>
