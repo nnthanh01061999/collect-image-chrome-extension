@@ -29,7 +29,7 @@ function ViewImage(props: TViewImageProps) {
             onClick={() => closeReact(VIEW_IMAGE)}
         >
             <img
-                className='object-left-topcontain h-auto max-h-screen w-auto cursor-pointer'
+                className='contain h-auto max-h-screen w-auto cursor-pointer object-left-top'
                 src={src}
                 alt={src}
                 onClick={(e) => e.stopPropagation()}
